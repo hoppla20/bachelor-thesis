@@ -1,0 +1,97 @@
+%% LaTeX2e class for student theses
+%% sections/content.tex
+%% 
+%% Karlsruhe Institute of Technology
+%% Institute for Program Structures and Data Organization
+%% Chair for Software Design and Quality (SDQ)
+%%
+%% Dr.-Ing. Erik Burger
+%% burger@kit.edu
+%%
+%% Version 1.3.6, 2022-09-28
+
+\chapter{First Content Chapter}
+\label{ch:FirstContent}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Confidential Computing                                                   %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Confidential Computing}
+
+\section{Trusted Execution Environments (TEEs)}
+\label{sec:TEE}
+
+Defined by Confidential Computing Consortium.
+
+\subsection{Properties}
+
+\begin{itemize}
+  \item Data confidentiality
+  \item Data integrity
+  \item Code integrity
+\end{itemize}
+
+Depending on the specific TEE, it may also provide:
+
+\begin{itemize}
+  \item Code confidentiality
+  \item Authenticated Launch
+  \item Programmability
+  \item Attestation
+  \item Recoverability
+\end{itemize}
+
+\subsection{Confidential Computing Environments (CCEs)}
+
+Defined by Edgeless Systems. \hyperref[sec:TEE]{Trusted Execution Environment}
+with specific capabilities:
+
+\begin{itemize}
+  \item Runtime encryption (Data confidentiality/integrity)
+  \item Isolation
+  \item Remote attestation
+\end{itemize}
+
+\section{TEE Flavors}
+
+\subsection{Virtual-Machine-based TEE}
+
+AMD SEV, Intel TDX, IBM Secure Execution and PEF, ...
+
+\subsection{Process-based TEE}
+
+Intel SGX, ...
+
+Application Splitting:
+
+\begin{itemize}
+  \item Enclave
+  \item Host
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Privacy-Preserving Computing                                             %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Privacy-Preserving Computing}
+
+\section{Multi-Party Computation}
+
+\section{Homomorphic Encryption}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Case Studies                                                             %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Case Studies}
+
+\section{Confidential Containers}
+
+\section{Marble Run}
+
+\section{Constellation Kubernetes}
+
+\section{Sharemind}
+
+\section{Veracruz}
