@@ -11,6 +11,70 @@
 %% Version 1.3.6, 2022-09-28
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Terminology                                                              %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Terminology}
+
+\todo{Expand Terminology}
+
+\section{Parties and Roles}
+
+\begin{itemize}
+  \item Data Owner
+  \item Program Owner
+  \item Cloud Service Provider
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Virtualization and Containerization                                      %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Virtualization and Containerization}
+
+\section{Virtual Machine}
+
+\subsection{Virtual Machine Manager (VMM)}
+
+\section{Container}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Cloud Computing                                                          %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Cloud Computing}
+
+\section{Definition}
+
+\cite{mell2011}
+
+\subsection{Characteristics}
+
+\todo{Explain Cloud Computing Characteristics}
+
+\begin{itemize}
+  \item On-demand self-service
+  \item Broad network access
+  \item Resource pooling
+  \item Rapid elasticity
+  \item Measured service
+\end{itemize}
+
+\subsection{Service Models}
+
+\todo{Explain Cloud Computing Service Models}
+
+\begin{itemize}
+  \item Software as a Service (SaaS)
+  \item Platform as a Service (PaaS)
+  \item Infrastructure as a Service (IaaS)
+\end{itemize}
+
+\section{Benefits}
+
+\section{Problems}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Confidential Computing                                                   %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -40,44 +104,24 @@ Depending on the specific TEE, it may also provide:
   \item Recoverability
 \end{itemize}
 
-\subsection{Confidential Computing Environments (CCEs)}
+\subsection{Models}
 
-Defined by Edgeless Systems. \hyperref[sec:TEE]{Trusted Execution Environment}
-with specific capabilities:
+\subsubsection{Virtual-Machine-based TEE}
 
 \begin{itemize}
-  \item Runtime encryption (Data confidentiality/integrity)
-  \item Isolation
-  \item Remote attestation
+  \item Memory encrypted VM running on top of a VMM \todo{Explain VMM}
 \end{itemize}
 
-\section{TEE Flavors}
-
-\subsection{Virtual-Machine-based TEE}
-
-AMD SEV, Intel TDX, IBM Secure Execution and PEF, ...
-
-\subsection{Process-based TEE}
-
-Intel SGX, ...
+\subsubsection{Process-based TEE}
 
 Application Splitting:
 
 \begin{itemize}
-  \item Enclave
-  \item Host
+  \item \textbf{Enclave:} Contains trusted component, resides in encrypted
+        memory.
+  \item \textbf{Host:} Interfaces with the OS and propagates I/O from encrypted
+        memory to the rest of the system.
 \end{itemize}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% Privacy-Preserving Computing                                             %%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\chapter{(Privacy-Preserving Computing)}
-\label{ch:privacy-preserving-computing}
-
-\section{(Secure Multi-Party Computation)}
-
-\section{(Homomorphic Encryption)}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Technical Research                                                       %%%
@@ -85,11 +129,9 @@ Application Splitting:
 
 \chapter{Technical Research}
 
-\section{Marble Run}
-
-\section{Sharemind}
-
 \section{Veracruz}
+
+\section{Marble Run}
 
 \section{Constellation Kubernetes}
 

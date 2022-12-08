@@ -10,11 +10,128 @@
 %%
 %% Version 1.3.6, 2022-09-28
 
-\chapter{Secure (Privacy-Preserving) Computation Platform}
+\chapter{Secure Computation Platform}
 \label{ch:proposal}
 
 \section{Goal}
 
+Provide a platform for
+\begin{itemize}
+  \item continuous delivery and deployment (CD)
+  \item deploying services
+  \item running computation tasks and gathering results
+  \item gathering logs and metrics
+\end{itemize}
+in a secure environment:
+\begin{itemize}
+  \item Data protection (confidentiality and integrity) in every state
+  \item Code integrity
+  \item Automated remote attestation
+\end{itemize}
+
+The goal is not to promise security in every software layer but a trust model
+which separates the infrastructure layers from the guest application.
+
+The CSP should manage the infrastructure and orchestrate the applications so
+that the application owner can focus on developing the application instead of
+worrying about the infrastructure. The orchestration of applications should only
+include unprivileged actions.
+
+But the security of the application is not part of this platform and should be
+handled by the application owner. While supporting the developers in deploying
+their applications the platform should impose as little limitations as possible.
+The application developer should be able to make own decisions regarding the
+programming language and the libraries they want to use.
+
+Furthermore, data owners should not blindly trust the CSP. Which means
+application and data owners should be able to define security requirements and
+verify them before sending/unlocking sensitive data. These requirements include
+\begin{itemize}
+  \item Software running in confidential VMs including initrd and kernel
+  \item Hardware Confidential Computing support
+  \item Firmware (OVMF)
+\end{itemize}
+
 \section{Architecture}
+
+\subsection{Design Choices}
+
+\begin{table}
+  \centering
+  \small
+  \setitemize{noitemsep,topsep=0pt,leftmargin=*}
+  \begin{tabular}{L{75pt}|L{100pt}L{100pt}L{100pt}}
+                                               & \multicolumn{1}{C{100pt}}{Infrastructure as a Service} & \multicolumn{2}{c}{Platform as a Service}                                                  \\
+                                               &                                                        & \multicolumn{1}{c}{Container}                             & \multicolumn{1}{c}{Binary}     \\
+    \hline
+    \hline
+    Provides                                   & VMs with CC enabled                                    & Container runtime that runs containers in a CC enabled VM & CC enabled runtime environment \\
+    \hline
+    Infrastructure \& Orchestration managed by & Application Owner                                      & CSP                                                       & CSP                            \\
+    \hline
+    Development Environment managed by         & Application Owner                                      & Application Owner                                         & CSP                            \\
+    \hline
+    Notes                                      &
+    \begin{itemize}
+      \item Everything has to be managed by
+            the application owner
+      \item Goal is to reduce complexity
+    \end{itemize}      &
+    \begin{itemize}
+      \item Big attack surface (TCB) if done
+            bad
+      \item Much more in control of CSP
+      \item Services supporting CC usage can be
+            provided by CSP
+    \end{itemize}  &
+    \begin{itemize}
+      \item Least control by application owner
+      \item Either complex dependency management
+            and language support by CSP
+      \item Or language or dependency limitations
+    \end{itemize}                                                                                                                                                       \\
+  \end{tabular}
+  \caption{An overview over different services models.}
+  \label{table:1}
+\end{table}
+\todo{More description for table}
+
+\subsubsection*{Containers}
+
+\begin{itemize}
+  \item Puts control over development environment into the hands of application
+        owner
+  \item No complex language support and dependency management by CSP
+  \item No language/dependency limitations
+\end{itemize}
+
+\subsubsection*{PaaS Service Model}
+
+Lets CSP support application developers
+\begin{itemize}
+  \item provide infrastructure and services that help in deployment
+        \begin{itemize}
+          \item image building
+          \item image deployment
+          \item image registry service
+        \end{itemize}
+  \item provide infrastructure and service that help in enabling and
+        verifying CC
+        \begin{itemize}
+          \item gathering and sending hardware CC attestation results
+          \item
+        \end{itemize}
+\end{itemize}
+
+\subsubsection*{Kubernetes}
+
+Kubernetes is ``a portable, extensible, open source platform for managing
+containerized workloads and services''. It provides some generally applicable
+PaaS features such as deployment, scaling, load balancing, while being very
+extensible to enable integration with for example logging, monitoring, alerting,
+etc. Kubernetes is designed to enable user choice and flexibility, so instead of
+it being a monolithic platform every solution is optional and pluggable. This
+enables a wide variety of supported infrastructure platforms. \todo{Why not
+docker swarm?}
 
 \section{Implementation Challenges}
