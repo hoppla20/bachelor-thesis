@@ -1,3 +1,11 @@
 {
-    "nixEnvSelector.nixFile": "${workspaceRoot}/shell.nix"
+    "nixEnvSelector.nixFile": "${workspaceRoot}/shell.nix",
+    "todo-tree.regex.regex": "((//|#|<!--|;|/\\*|^|%|\\\\)\\s*($TAGS)\\{*|^\\s*- \\[ \\])",
+    "todo-tree.general.tags": [
+      "TODO",
+      "todo"
+    ],
+    "todo-tree.filtering.includeGlobs": [
+      "**/*.tex"
+    ]
 }
