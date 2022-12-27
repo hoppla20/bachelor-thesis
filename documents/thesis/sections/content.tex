@@ -10,6 +10,42 @@
 %%
 %% Version 1.3.6, 2022-09-28
 
+\chapter{Background}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% From Hardware to Application                                             %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Linux Boot Process}
+
+\subsection{Hardware}
+\subsection{Firmware}
+\subsection{Boot Loader}
+\subsection{Kernel}
+\subsection{initrd}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Virtualization and Containerization                                      %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Virtualization and Containerization}
+
+\subsection{Virtualization}
+
+\subsubsection{Virtual Machine Manager (VMM)}
+
+\section{Containerization}
+
+\subsection{Container Manager (CM)}
+
+containerd, cri-o
+
+\subsection{Container Runtime (CR)}
+
+runc, kata
+
+\subsection{Shim}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Terminology                                                              %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -25,18 +61,6 @@
   \item Program Owner
   \item Cloud Service Provider
 \end{itemize}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% Virtualization and Containerization                                      %%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\chapter{Virtualization and Containerization}
-
-\section{Virtual Machine}
-
-\subsection{Virtual Machine Manager (VMM)}
-
-\section{Container}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Cloud Computing                                                          %%%
@@ -94,6 +118,8 @@ Defined by Confidential Computing Consortium.
   \item Code integrity
 \end{itemize}
 
+\subsection{Trusted Computing Base (TCB)}
+
 Depending on the specific TEE, it may also provide:
 
 \begin{itemize}
@@ -122,6 +148,16 @@ Application Splitting:
   \item \textbf{Host:} Interfaces with the OS and propagates I/O from encrypted
         memory to the rest of the system.
 \end{itemize}
+
+\section{Commodity Hardware Solutions}
+
+\subsection{Intel TDX and SGX}
+
+\subsection{AMD SEV}
+
+\subsection{ARM TrustZone}
+
+\section{Measured Boot}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Technical Research                                                       %%%
