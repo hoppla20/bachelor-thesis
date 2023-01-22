@@ -14,9 +14,7 @@
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{sdqthesis}[2022-09-28 v1.3.6 Student thesis class]
-% Language options. German is also needed in English thesis for the abstract
-\DeclareOption{ngerman}{\PassOptionsToPackage{\CurrentOption}{babel}}
-\DeclareOption{english}{\PassOptionsToPackage{main=\CurrentOption,ngerman}{babel}}
+\DeclareOption{english}{\PassOptionsToPackage{\CurrentOption}{babel}}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{scrbook}}
 \ProcessOptions\relax
 % Used to detect language families
@@ -67,6 +65,12 @@
 
 % nicer spacing for enumerations
 \RequirePackage{enumitem}
+\setlist{itemsep=0pt}
+\setlist[description]{font=\small\textsb,style=nextline}
+
+% roman capital numbers
+\newcommand{\goalRef}[1]{\textbf{\MakeUppercase{\romannumeral #1}}}
+\newcommand{\subGoalRef}[2]{\textbf{\MakeUppercase{\romannumeral #1}.\symbol{\numexpr96+#2}}}
 
 %% -----------
 %% | Spacing |
@@ -81,6 +85,11 @@
 %% ---------------
 %% | Page Layout |
 %% ---------------
+
+% draft mode
+\RequirePackage{ifdraft}
+\RequirePackage{ifthen}
+
 \KOMAoptions{
    fontsize=12pt,
    paper=a4,
@@ -90,11 +99,11 @@
 }
 
 % Margins
-\if@twoside%
-  \typearea[20mm]{15} % twoside
-\else% 
-  \typearea[10mm]{15} % oneside
-\fi%
+\ifdraft{
+  \typearea[0mm]{10} % draft
+}{
+  \typearea[10mm]{15}
+}
 \RequirePackage[headsepline,draft=false]{scrlayer-scrpage}
 \pagestyle{scrheadings}
 
@@ -107,19 +116,10 @@
 %% --------------
 
 % Logos
-\newcommand{\thegrouplogo}{sdqlogo}
-\newcommand{\grouplogo}[1]{\renewcommand{\thegrouplogo}{#1}}
-\newcommand{\printgrouplogo}{\includegraphics[height=1.8cm]{logos/\thegrouplogo}}
-\newcommand{\nogrouplogo}{\renewcommand{\printgrouplogo}{}}
-
 \titlehead{%
-% KIT logo german/english
-\ifcurrentbaselanguage{English}
-{\includegraphics[height=1.8cm]{logos/kitlogo_en_cmyk}}
-{\includegraphics[height=1.8cm]{logos/kitlogo_de_cmyk}}
+\includegraphics[height=1.8cm]{logos/kitlogo_en_cmyk}
 \hfill
 % SDQ logo
-\printgrouplogo
 \ThisCenterWallPaper{1}{title-background.pdf}
 }
 
@@ -127,12 +127,8 @@
 \setkomafont{title}{\huge\sffamily\bfseries}
 \setkomafont{subtitle}{\normalfont\large}
 
-\uppertitleback{Karlsruher Institut für Technologie\\ Fakultät für Informatik\\ Postfach 6980\\ 76128 Karlsruhe}
-
 %% variables for title page
-\newcommand{\theinstitute}{\ifcurrentbaselanguage{English}
-    {KASTEL -- Institute of Information Security and Dependability}
-    {KASTEL -- Institut für Informationssicherheit und Verlässlichkeit}}
+\newcommand{\theinstitute}{Institute for \dots}
 \newcommand{\thethesistype}{}
 \newcommand{\thereviewerone}{}
 \newcommand{\thereviewertwo}{}
@@ -160,16 +156,15 @@
 \newcommand{\settitle}{%
 \publishers{%
 \large
-\ifcurrentbaselanguage{English}{at the Department of Informatics}%
-{an der Fakultät für Informatik}\\
+at the Department of Informatics\\
 \theinstitute\\[2em]
 \begin{tabular}{l l}
-  \ifcurrentbaselanguage{English}{Reviewer}{Erstgutachter}: & \thereviewerone\\
-  \ifcurrentbaselanguage{English}{Second reviewer}{Zweitgutachter}: & \thereviewertwo\\
-  \ifcurrentbaselanguage{English}{Advisor}{Betreuender Mitarbeiter}: &  \theadvisorone\\
+  Reviewer: & \thereviewerone\\
+  Second reviewer: & \thereviewertwo\\
+  Advisor: &  \theadvisorone\\
   % if there is no second advisor, do not output this line
   \ifthenelse{\equal{\theadvisortwo}{}}{}{%
-  \ifcurrentbaselanguage{English}{Second advisor}{Zweiter betreuender Mitarbeiter}: & \theadvisortwo\\
+  Second advisor: & \theadvisortwo\\
   }
 \end{tabular}
 \vskip2em
@@ -186,38 +181,16 @@
 
 \def\ackname{Acknowledgments}
 \def\abstractname{Abstract}
-\def\switcht@deutsch{\svlanginfo
-	\def\ackname{Danksagung}
-	\def\abstractname{Kurzfassung}
-}
-\def\switcht@english{\svlanginfo
-	\def\ackname{Acknowledgements}
-	\def\abstractname{Abstract}
-}
 
-%% In English theses, an additional German Abstract is needed.
 \newcommand{\includeabstract}{
-\ifcurrentbaselanguage{English}{
-% include English and German abstracts
 \input{sections/abstract_en.tex}
-\begin{otherlanguage}{ngerman}
-\input{sections/abstract_de.tex}
-\end{otherlanguage}
-}{
-% include only German abstract
-\include{sections/abstract_de}
-}
 }
 
 %% ------------
 %% | Packages |
 %% ------------
 
-% draft mode
-\RequirePackage{ifdraft}
-\RequirePackage{ifthen}
-
-% enumerate subsubsections
+% enumerate subsections
 \setcounter{secnumdepth}{3}
 
 % wallpaper for title page (KIT-Frame)
@@ -248,7 +221,7 @@
 
 % PDF specific packages
 \RequirePackage[hyphens]{url}
-\RequirePackage[breaklinks,colorlinks=false]{hyperref}
+\RequirePackage[breaklinks,colorlinks=false,final]{hyperref}
 \newcommand\setpdf{
     \hypersetup{%
     pdftitle={\thethesistype},%

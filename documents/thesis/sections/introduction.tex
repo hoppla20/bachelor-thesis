@@ -19,5 +19,37 @@
 \section{Goal}
 \label{sec:goal}
 
+The research of this paper focuses on two main goals:
+
+\begin{enumerate}[label=\textbf{\Roman*}]
+  \item Management of infrastructure and orchestration of application workloads
+  running on this infrastructure. Provide application developers services that
+  support them with the development of applications and the deployment of
+  application workloads.
+  \item Make application workloads deployed by these services confidential
+  (definition in section \ref{sec:confidentiality}) and allow verification of
+  this confidentiality by clients and third-parties.
+\end{enumerate}
+
+Services mentioned in goal \goalRef{1} include
+\begin{itemize}
+  \item continuous integration (CI)
+  \item continuous delivery and deployment (CD)
+  \item deploying applications like services and computation tasks
+  \item orchestration and monitoring of those applications
+\end{itemize}
+While these services should support the application owner in developing and
+deploying applications (\subGoalRef{1}{1}) it should impose as little
+limitations as possible on the application owner. Decisions regarding the
+programming language, libraries, and frameworks should be made by the
+application owner (\subGoalRef{1}{2}).
+
+Goal \goalRef{2} doesn't imply application security. Application workloads
+deployed with the help of the service provider should be shielded from the
+infrastructure, the service provider, and its services, but securing the
+application is outside the scope of this goal (\subGoalRef{2}{1}). The
+confidentiality should also not require manual application modification by the
+application owner (\subGoalRef{2}{2}).
+
 \section{Research Methodology}
 \label{sec:research-methodology}

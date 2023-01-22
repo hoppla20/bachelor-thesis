@@ -1,4 +1,5 @@
 {
+    "rewrap.autoWrap.enabled": true,
     "nixEnvSelector.nixFile": "${workspaceRoot}/shell.nix",
     "todo-tree.regex.regex": "((//|#|<!--|;|/\\*|^|%|\\\\)\\s*($TAGS)\\{*|^\\s*- \\[ \\])",
     "todo-tree.general.tags": [

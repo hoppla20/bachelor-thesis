@@ -13,45 +13,6 @@
 \chapter{Secure Computation Platform}
 \label{ch:proposal}
 
-\section{Goal}
-
-Provide a platform for
-\begin{itemize}
-  \item continuous delivery and deployment (CD)
-  \item deploying services
-  \item running computation tasks and gathering results
-  \item gathering logs and metrics
-\end{itemize}
-in a secure environment:
-\begin{itemize}
-  \item Data protection (confidentiality and integrity) in every state
-  \item Code integrity
-  \item Automated remote attestation
-\end{itemize}
-
-The goal is not to promise security in every software layer but a trust model
-which separates the infrastructure layers from the guest application.
-
-The CSP should manage the infrastructure and orchestrate the applications so
-that the application owner can focus on developing the application instead of
-worrying about the infrastructure. The orchestration of applications should only
-include unprivileged actions.
-
-But the security of the application is not part of this platform and should be
-handled by the application owner. While supporting the developers in deploying
-their applications the platform should impose as little limitations as possible.
-The application developer should be able to make own decisions regarding the
-programming language and the libraries they want to use.
-
-Furthermore, data owners should not blindly trust the CSP. Which means
-application and data owners should be able to define security requirements and
-verify them before sending/unlocking sensitive data. These requirements include
-\begin{itemize}
-  \item Software running in confidential VMs including initrd and kernel
-  \item Hardware Confidential Computing support
-  \item Firmware (OVMF)
-\end{itemize}
-
 \section{Architecture}
 
 \subsection{Design Choices}
@@ -92,7 +53,7 @@ verify them before sending/unlocking sensitive data. These requirements include
     \end{itemize}                                                                                                                                                       \\
   \end{tabular}
   \caption{An overview over different services models.}
-  \label{table:1}
+  \label{table:service-models}
 \end{table}
 \todo{More description for table}
 

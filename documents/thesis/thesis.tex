@@ -15,7 +15,7 @@
 %% Available page modes: oneside, twoside
 %% Available languages: english, ngerman
 %% Available modes: draft, final (see README)
-\documentclass[twoside, english]{sdqthesis}
+\documentclass[oneside, english, draft]{sdqthesis}
 
 %% ---------------------------------
 %% | Information about the thesis  |
@@ -31,7 +31,7 @@
 \thesistype{Bachelor's Thesis}
 
 %% Change the institute here, ``KASTEL'' is default
-% \myinstitute{Institute for \dots}
+\myinstitute{SCC -- Steinbuch Centre for Computing}
 
 %% You can put a logo in the ``logos'' directory and include it here
 %% instead of the SDQ logo
@@ -62,8 +62,7 @@
 \addbibresource{thesis.bib}
 
 %% Todos
-\setlength{\marginparwidth}{2cm}
-\usepackage{todonotes}
+\usepackage[obeyDraft]{todonotes}
 
 %% Tables
 \usepackage{multirow}
@@ -97,6 +96,8 @@
 %% ----------------
 %% |   Abstract   |
 %% ----------------
+
+\listoftodos
  
 %% For theses written in English, an abstract both in English
 %% and German is mandatory.
@@ -106,7 +107,8 @@
 %% The text is included from the following files:
 %% - sections/abstract
 
-\includeabstract
+%\includeabstract
+\input{sections/abstract_en.tex}
 
 %% ------------------------
 %% |   Table of Contents  |
@@ -122,16 +124,18 @@
 
 \mainmatter
 
-\input{sections/introduction.tex}
-\input{sections/content.tex}
-\input{sections/proposal.tex}
-\input{sections/evaluation.tex}
-\input{sections/conclusion.tex}
+\include{sections/introduction.tex}
+\include{sections/content.tex}
+\include{sections/proposal.tex}
+\include{sections/evaluation.tex}
+\include{sections/conclusion.tex}
 
 %% --------------------
 %% |   Bibliography   |
 %% --------------------
 
+%% Print all sources even when not cited
+\nocite{*}
 %% Add entry to the table of contents for the bibliography
 \printbibliography[heading=bibintoc]
 
