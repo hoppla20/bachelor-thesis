@@ -3,17 +3,17 @@
 \subsection{Commercial Solutions by well-known Service Providers}
 
 \begin{description}
-  \item[GCP Confidential Space]
-    Let multiple parties share confidential data with a workload while retaining
-    the confidentiality and ownership of the data.
+  \item[AWS Nitro]
+    \todo[inline]{Description: AWS Nitro}
+  \item[Azure Confidential Containers]
+    \todo[inline]{Description: Azure Confidential Containers}
   \item[GCP Confidential Dataproc]
     Big data processing through fully managed data processing frameworks and
     tools like Spark and Hadoop. Uses confidential VMs to provide
     confidentiality.
-  \item[Azure Confidential Containers]
-    \todo[inline]{Description: Azure Confidential Containers}
-  \item[AWS Nitro]
-    \todo[inline]{Description: AWS Nitro}
+  \item[GCP Confidential Space]
+    Let multiple parties share confidential data with a workload while retaining
+    the confidentiality and ownership of the data.
 \end{description}
 
 \todo[inline]{Problems with commercial solutions}
@@ -24,26 +24,45 @@ Kubernetes is an extensible, open source platform for managing containerized
 workloads and services. Due to its open source nature and popularity there has
 been a rapidly growing ecosystem surrounding Kubernetes. It provides general
 platform features such as deployment, orchestration, scaling, load-balancing,
-integration with logging, monitoring, and alerting solutions. Because of its
-pluggable and extensible design it has been widely adopted for building full
-platform solutions.
+integration with logging, monitoring, and alerting solutions.
 
-Explanation of needed Kubernetes components:
+A simplified overview over core components inside a Kubernetes cluster (see
+figure \ref{fig:kubernetes-overview}):
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.8\linewidth]{resources/kubernetes-overview.png}
+  \caption{A simplified overview over the Kubernetes components.}
+  \label{fig:kubernetes-overview}
+\end{figure}
 
 \begin{description}
-  \item[Node]
-    Machine running workloads (application and control-plane workloads)
+  \item[Nodes]
+    (Possibly virtual) machines running containerized applications. On each node
+    runs a component called kubelet that manages the pods and the corresponding
+    containers on the node.
   \item[Pods]
     A group of containers that share storage and network resources that models
     an application-specific logical host. The containers that make up a pod are
     always located on the same node and are scheduled in unison.
+  \item[Control Plane]
+    A collection of pods that manage the nodes and workload pods inside the
+    cluster. This includes an API, a backing store (etcd) for all cluster data,
+    and a scheduler that assigns pods to nodes.
+  \item[Container Runtime]
+    Responsible for executing containers on a node (see section
+    \ref{sec:container-runtime}).
 \end{description}
 
-\todo[inline]{Expand as needed in the next sections}
-\todo[inline]{Explain etcd, control-plane, worker nodes (data, control, workload plane)}
+\todo[inline]{Kubernetes: Expand as needed in the next chapters}
 
-In the Kubernetes architecture there are three levels on which confidentiality
-can be applied to: The node, pod, or container. There are distinct benefits and
+Kubernetes' non-monolithic design allows the replacement of almost every aspect
+and component of a cluster. This allows a Kubernetes cluster to be run on
+basically any underlying infrastructure, regardless of the hardware choices or
+networking design.
+
+There are three levels in a Kubernetes cluster on which confidentiality can be
+applied to: The node, pod, or container. There are distinct benefits and
 problems for applying confidentiality on each layer. We will discuss them in the
 following sections.
 
@@ -59,13 +78,11 @@ However, these solutions don't include verification of the nodes which means
 that one would have to build a custom remote attestation system -- for example
 by implementing the RATS (section \ref{sec:rats}).
 
-A more complete solution would be Edgeless Systems' Constellation Kubernetes.
-\todo[inline]{Go into the verification architecture of Constellation Kubernetes}
-
 The biggest problem with confidential nodes is the restriction of cluster admin
 privileges and verifying these as a client. While the workloads are shielded
 from the infrastructure cluster administrators would still have full control
-over the workloads running inside the cluster which breaks goal \goalRef{2}.
+over the workloads running inside the cluster which breaks goal
+\subGoalRef{2}{1}.
 
 \subsubsection{Confidential Containers}
 
@@ -74,8 +91,6 @@ running inside a TEE would only receive confidential data like decryption keys
 or personalized information after verifying that the process is running inside a
 TEE via remote attestation. Since the TEE shields the process from the cluster
 this approach remove the cluster administrator from the TCB of the application.
-
-\todo[inline]{Example: Kata Containers with VM-based TEE}
 
 Even though this approach doesn't conflict with the goals of this paper, it does
 collide with the design of Kubernetes. In the Kubernetes architecture the
@@ -92,8 +107,3 @@ the outside world. This improves the last approach as per definition a pod in a
 Kubernetes cluster defines an application-specific logical host. As opposed to
 shielding a single container, shielding a pod would allow sharing storage and
 networking resources between containers composing the pod.
-
-There is an ongoing effort to realize this approach at the project Confidential
-Containers.
-
-\todo[inline]{Go into details about Confidential Containers architecture.}

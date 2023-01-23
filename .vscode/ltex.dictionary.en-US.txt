@@ -10,3 +10,5 @@ Steinbuch
 Kata
 TCBs
 Dataproc
+etcd
+kubelet

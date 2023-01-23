@@ -7,11 +7,11 @@ traversing the network, and data that is currently being processed. While
 technologies in order to protect data ``at rest'' and ``in transit'' are
 commonly used today, there are not many methods to protect data ``in use''.
 
-By executing computations in a hardware-based trusted execution environment (see
+By executing computations in hardware-based trusted execution environments (see
 section \ref{sec:TEE}) confidential computing (CC) protects data ``in use''. In
 order to assure a client that the requested environment can be trusted, remote
 attestation protocols (see section \ref{ch:remote-attestation}) are used. The
-combination of these practices enable service providers to offer trusted
+combination of these two practices enable service providers to offer trusted
 services that can be verified remotely by clients or third-parties.
 
 \subsection{Trusted Execution Environments (TEEs)}
@@ -47,10 +47,10 @@ infrastructure provider, host operating system, hypervisor, service provider,
 and platform the TEE is running on. The only component remaining in the TCB of
 the application is the hardware providing the TEE properties.
 
-Utilizing software-based TEEs would mean giving control of creating TEEs in the
-hands of the service provider, conflicting with our goal to exclude the service
-provider from the applications TCB. For this reason this paper will focus
-solely on hardware-based TEE technologies.
+Utilizing software-based TEEs would mean giving control of enforcing TEE
+properties in the hands of the service provider, conflicting with goal
+\subGoalRef{2}{1}. For this reason this paper will focus solely on
+hardware-based TEE technologies.
 
 \subsection{TEE Models}
 
@@ -59,7 +59,7 @@ There are two distinct models of TEEs, process-based and VM-based.
 \subsubsection{Process-based TEEs}
 
 Process-based TEEs introduce a new programming model. A program needs to be
-split into two components, trusted and untrusted. These are often referred to
+split into two components, trusted and untrusted. These are often referred to as
 the ``enclave'' and ``host''. The enclave is executed in an environment where
 all TEE properties are provided. The enclave component should contain all code
 that interacts with sensitive data, whereas the host component is responsible
@@ -79,7 +79,7 @@ system, this includes
 
 \todo[inline]{Go into detail about how process-based TEEs work?}
 
-Splitting a program into enclave and host is challenging and requires a deep
+Splitting a program into enclave and host is challenging. It requires a deep
 understanding of security and how these process-based TEE solutions work. To
 ease the development of such applications SDKs and frameworks often hide the
 split between host and enclave from the developer\cite{schuster2022}.
@@ -88,15 +88,12 @@ Library OSes like Gramine and Occlum go even further and provide a POSIX-like
 runtime environment with support for network, file I/O, and multithreading.
 These library OSes contain the whole application in the enclave. But because the
 enclave doesn't have access to the OS running the program, the library OS
-provides libraries which implements OS system calls as library
-functions\cite{tsai2014}. This library then interfaces with a boilerplate host
-for I/O.
+provides libraries which implements OS system calls as library functions. This
+library then interfaces with a boilerplate host for I/O\cite{tsai2014}.
 
 Even though these SKDs, frameworks, and library OSes ease the development and
 make porting of existing applications easier, using process-based TEEs still
-requires more development effort or requires modifications of existing
-applications and is therefor more suited for applications where security is
-critical.
+requires more development effort and modifications of existing applications.
 
 \todo[inline]{Example: Intel SGX}
 
@@ -110,6 +107,8 @@ workloads from underlying software layers.
 
 \todo[inline]{Example: AMD SEV}
 \todo[inline]{Example: Intel TDX}
+
+\subsubsection{Comparison}
 
 Figure \ref{figure:cc-tee-comparison} shows a simplified comparison between the
 TCBs of an application running without CC, inside a process-based TEE, and
