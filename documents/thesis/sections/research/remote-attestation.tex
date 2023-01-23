@@ -2,18 +2,17 @@
 \label{ch:remote-attestation}
 
 Running applications inside a CC enabled environment is not enough in order to
-deepen the trust with the client or third-parties. In order to prove that the
+deepen the trust with clients or third-parties. In order to prove that the
 application is running inside a CC enabled environment and that neither the
-application nor the system it is running on has been tampered with, the provider
-can employ remote attestation.
+application nor the system it is running on has been tampered with, the service
+provider can facilitate remote attestation.
 
 In a remote attestation environment there are at least two roles: the attester
 and the relying party. The attester produces information about itself
 (evidence), on which the relying party makes a decision whether to trust the
-attester or not.
-
-In our context the attester would be the system running a client application and
-the relying party would be the data owner.
+attester or not. In our context the attester would be the system running a
+client application and the relying party would be the client accessing or
+sending data to the application.
 
 \subsection{Remote Attestation Procedures (RATS)}
 \label{sec:rats}

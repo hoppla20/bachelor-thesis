@@ -5,15 +5,25 @@
 \begin{description}
   \item[AWS Nitro]
     \todo[inline]{Description: AWS Nitro}
-  \item[Azure Confidential Containers]
+    \begin{itemize}
+      \item More of a TEE technology
+      \item Doesn't solve trust problem with the service provider
+    \end{itemize}
+  \item[Confidential VMs (Azure, GCP)]
     \todo[inline]{Description: Azure Confidential Containers}
+    \begin{itemize}
+      \item AMD SEV enabled VMs or VMs providing Intel SGX capabilities
+      \item Verification has to be implemented by the customer
+    \end{itemize}
   \item[GCP Confidential Dataproc]
     Big data processing through fully managed data processing frameworks and
     tools like Spark and Hadoop. Uses confidential VMs to provide
     confidentiality.
+    \todo[inline]{Dataproc: Verification of nodes?}
   \item[GCP Confidential Space]
     Let multiple parties share confidential data with a workload while retaining
     the confidentiality and ownership of the data.
+    \todo[inline]{Confidential Space: More research needed}
 \end{description}
 
 \todo[inline]{Problems with commercial solutions}

@@ -102,7 +102,7 @@ requires more development effort and modifications of existing applications.
 The main concept of VM-based TEEs is to apply the TEE properties to a full
 virtual machine running on top of a VMM. This enables VM-based TEEs to run
 basically any application without modifications. While VM-based TEEs have a
-larger TCB than process-based TEEs they are still explicitly designed to protect
+larger TCB than process-based TEEs they are explicitly designed to protect
 workloads from underlying software layers.
 
 \todo[inline]{Example: AMD SEV}
@@ -112,7 +112,15 @@ workloads from underlying software layers.
 
 Figure \ref{figure:cc-tee-comparison} shows a simplified comparison between the
 TCBs of an application running without CC, inside a process-based TEE, and
-inside a VM-based TEE.
+inside a VM-based TEE. The main difference is the size of the TCB. While
+process-based TEEs should be used for security critical applications, the
+need to modify existing applications in order to run them conflicts with goal
+\subGoalRef{2}{2}.
+
+But VM-based TEEs align with goal \subGoalRef{2}{1} by shielding the virtual
+machine and thereby applications running inside it from the outside, while also
+allowing the execution of unmodified applications which doesn't conflict with
+goal \subGoalRef{2}{2}.
 
 \begin{figure}
   \centering
@@ -128,6 +136,10 @@ inside a VM-based TEE.
 \end{figure}
 
 \subsection{Problems}
+
+\subsubsection{Performance impact}
+
+\todo[inline]{Find performance comparisons}
 
 \subsubsection{Support for accelerators}
 
