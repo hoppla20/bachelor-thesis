@@ -19,6 +19,9 @@
 \section{Goal}
 \label{sec:goal}
 
+\todo[inline]{Comparison/Evolution to non-confidential}
+\todo[inline]{Remove support development of application}
+
 This thesis focuses on two main goals:
 
 \begin{enumerate}[label=\textbf{\Roman*}]
@@ -31,9 +34,8 @@ This thesis focuses on two main goals:
   this confidentiality by clients and third-parties.
 \end{enumerate}
 
-Services mentioned in goal \goalRef{1} include
+Services mentioned in goal \goalRef{1} could include
 \begin{itemize}
-  \item continuous integration (CI)
   \item continuous delivery and deployment (CD)
   \item deploying applications like services and computation tasks
   \item orchestration and monitoring of those applications
@@ -44,7 +46,7 @@ limitations as possible on the application owner. Decisions regarding the
 programming language, libraries, and frameworks should be made by the
 application owner (\subGoalRef{1}{2}).
 
-Goal \goalRef{2} doesn't imply application security. Application workloads
+Goal \goalRef{2} does not imply application security. Application workloads
 deployed with the help of the service provider should be shielded from the
 infrastructure, the service provider, and its services. But securing the
 application is outside the scope of this goal (\subGoalRef{2}{1}). The

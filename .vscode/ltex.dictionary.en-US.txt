@@ -12,3 +12,7 @@ TCBs
 Dataproc
 etcd
 kubelet
+cri-o
+containerd
+runc
+kata

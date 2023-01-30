@@ -7,7 +7,7 @@
     \todo[inline]{Description: AWS Nitro}
     \begin{itemize}
       \item More of a TEE technology
-      \item Doesn't solve trust problem with the service provider
+      \item does not solve trust problem with the service provider
     \end{itemize}
   \item[Confidential VMs (Azure, GCP)]
     \todo[inline]{Description: Azure Confidential Containers}
@@ -26,9 +26,22 @@
     \todo[inline]{Confidential Space: More research needed}
 \end{description}
 
-\todo[inline]{Problems with commercial solutions}
+Even though these solutions all employ CC technology to shield running
+application workloads from the software layers below (except AWS Nitro), they
+lack verification of those TEE environments. But this isn't a problem with the
+service provider, as putting the verification of their own TEE environments
+makes the verification pointless. Either the client does the verification on its
+own or they employ an external verifier in order to appraise the evidence
+produced by the TEE (as mentioned in section \ref{sec:rats} we will dive deeper
+into solving this problem in chapter \ref{sec:proposal:architecture}).
+
+The more significant problem with these solutions is the lack of raw attestation
+evidence (produced by the hardware) and/or reviewable virtual firmware used for
+virtualization in VM-based TEEs. Both are essential in removing the service
+provider as a trusted entity.
 
 \subsection{Kubernetes as platform base}
+\label{sec:kubernetes-platform-base}
 
 Kubernetes is an extensible, open source platform for managing containerized
 workloads and services. Due to its open source nature and popularity there has
@@ -84,7 +97,7 @@ machines -- for example by facilitating AMD SEV or Intel TDX -- a Kubernetes
 cluster operator is able to shield workloads running inside the cluster.
 Prominent service providers like Azure and GCP already offer the option of
 deploying their managed Kubernetes clusters with confidential worker nodes.
-However, these solutions don't include verification of the nodes which means
+However, these solutions do not include verification of the nodes which means
 that one would have to build a custom remote attestation system -- for example
 by implementing the RATS (section \ref{sec:rats}).
 
@@ -102,7 +115,7 @@ or personalized information after verifying that the process is running inside a
 TEE via remote attestation. Since the TEE shields the process from the cluster
 this approach remove the cluster administrator from the TCB of the application.
 
-Even though this approach doesn't conflict with the goals of this paper, it does
+Even though this approach does not conflict with the goals of this paper, it does
 collide with the design of Kubernetes. In the Kubernetes architecture the
 smallest deployable unit of computation is a pod, a collection of application
 containers. These containers share storage and network resources, but it becomes

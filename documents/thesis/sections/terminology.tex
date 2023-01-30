@@ -21,32 +21,37 @@ infrastructure or platform it is running on.
 The set of all hardware, firmware, and/or software components that are critical
 to the security of a given computing system. These components are the only
 components in the computing system that operate at a high level of trust. This
-doesn't imply that these components are secure, but that they are crucial to the
+does not imply that these components are secure, but that they are crucial to the
 security of system as a whole.
 
 \section{Roles}
 
-This section will reference the background and cloud computing section below.
+While this section defines roles and their tasks, one should keep in mind that a
+single entity can take on multiple roles. Section \ref{sec:trust-model} will
+define which roles shouldn't be aggregated onto one entity.
 
-\subsection{Service Provider}
+\todo[inline]{Remove term ``client'' from document}
 
-An entity providing services in order to ease the development and deployment of
+\subsection*{Infrastructure Provider}
+
+The infrastructure provider controls the hardware and firmware used to provide
+compute, networking, and storage resources.
+
+\subsection*{Service Provider}
+
+An entity providing services on top of infrastructure provided by the
+infrastructure provider in order to ease the development and deployment of
 applications -- often in the form of a platform.
 
-\subsection{Client}
+\subsection*{Application Owner}
 
-Entities that make use of the platform services provided by the service
-provider.
+An entity developing an application for a customer on the platform provided by
+the service provider.
 
-\subsubsection{Application Owner}
+\subsection*{Data Owner}
 
-An entity developing an application on the platform provided by the service
-provider.
-
-\subsubsection{Data Owner}
+\todo[inline]{Often the customer?}
 
 An entity that is in the possession of possibly sensible data that will be
 processed or used by an application deployed on the platform provided by the
 service provider.
-
-\subsubsection{Third Party}
