@@ -213,7 +213,7 @@ at the Department of Informatics\\
 
 % show graphics in draft mode
 \RequirePackage{graphicx}
-\setkeys{Gin}{draft=false}
+\setkeys{Gin}{draft=false,width=0.8\linewidth}
 
 % appendix
 \RequirePackage[toc,title,header]{appendix}
