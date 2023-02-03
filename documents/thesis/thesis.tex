@@ -15,7 +15,7 @@
 %% Available page modes: oneside, twoside
 %% Available languages: english, ngerman
 %% Available modes: draft, final (see README)
-\documentclass[oneside, english, draft]{sdqthesis}
+\documentclass[oneside, english, final]{sdqthesis}
 
 %% ---------------------------------
 %% | Information about the thesis  |
@@ -125,9 +125,24 @@
 \mainmatter
 
 \include{sections/introduction.tex}
-\include{sections/content.tex}
-\include{sections/proposal.tex}
-\include{sections/evaluation.tex}
+
+%\input{sections/terminology.tex}
+
+%\chapter{Background}
+
+%\input{sections/background/virtualization.tex}
+%\input{sections/background/containerization.tex}
+
+%\chapter{Technical Research}
+
+%\input{sections/research/cloud-computing.tex}
+%\input{sections/research/confidential-computing.tex}
+%\input{sections/research/remote-attestation.tex}
+%\input{sections/research/solutions.tex}
+
+%\input{sections/traditional-architecture.tex}
+\input{sections/architecture-proposal.tex}
+
 \include{sections/conclusion.tex}
 
 %% --------------------

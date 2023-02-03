@@ -191,7 +191,7 @@ at the Department of Informatics\\
 %% ------------
 
 % enumerate subsections
-\setcounter{secnumdepth}{3}
+\setcounter{secnumdepth}{2}
 
 % wallpaper for title page (KIT-Frame)
 \RequirePackage{wallpaper}
@@ -213,7 +213,7 @@ at the Department of Informatics\\
 
 % show graphics in draft mode
 \RequirePackage{graphicx}
-\setkeys{Gin}{draft=false,width=0.8\linewidth}
+\setkeys{Gin}{draft=false}
 
 % appendix
 \RequirePackage[toc,title,header]{appendix}
