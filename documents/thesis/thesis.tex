@@ -15,7 +15,7 @@
 %% Available page modes: oneside, twoside
 %% Available languages: english, ngerman
 %% Available modes: draft, final (see README)
-\documentclass[oneside, english, final]{sdqthesis}
+\documentclass[oneside, english, draft]{sdqthesis}
 
 %% ---------------------------------
 %% | Information about the thesis  |
@@ -124,24 +124,34 @@
 
 \mainmatter
 
+\chapter{Introduction}
+\label{ch:Introduction}
+
 \include{sections/introduction.tex}
 
-%\input{sections/terminology.tex}
+\chapter{Terminology}
 
-%\chapter{Background}
+\input{sections/terminology.tex}
 
-%\input{sections/background/virtualization.tex}
-%\input{sections/background/containerization.tex}
+\chapter{Background}
 
-%\chapter{Technical Research}
+\input{sections/background/virtualization.tex}
+\input{sections/background/containerization.tex}
 
-%\input{sections/research/cloud-computing.tex}
-%\input{sections/research/confidential-computing.tex}
-%\input{sections/research/remote-attestation.tex}
-%\input{sections/research/solutions.tex}
+\chapter{Technical Research}
 
-%\input{sections/traditional-architecture.tex}
+\input{sections/research/distributed-resource-management-systems.tex}
+\input{sections/research/confidential-computing.tex}
+\input{sections/research/remote-attestation.tex}
+\input{sections/research/solutions.tex}
+
+% Main Content
+
+\input{sections/traditional-architecture.tex}
 \input{sections/architecture-proposal.tex}
+
+\chapter{Conclusion}
+\label{ch:Conclusion}
 
 \include{sections/conclusion.tex}
 

@@ -1,15 +1,3 @@
-%% LaTeX2e class for student theses
-%% sections/proposal.tex
-%% 
-%% Karlsruhe Institute of Technology
-%% Institute for Program Structures and Data Organization
-%% Chair for Software Design and Quality (SDQ)
-%%
-%% Dr.-Ing. Erik Burger
-%% burger@kit.edu
-%%
-%% Version 1.3.6, 2022-09-28
-
 \chapter{Secure Computation Platform Proposal}
 \label{ch:proposal}
 
@@ -23,51 +11,63 @@ data.
 
 \subsection{Roles}
 
-\subsubsection{Infrastructure and Service Provider}
+\begin{description}
+  \item[Infrastructure and Service Provider]
+    The infrastructure provider is responsible for the availability of the
+    infrastructure used to provide compute, networking, and storage resources.
+    As such the infrastructure controls and has access to the physical hardware
+    and firmware.
 
-The infrastructure provider is responsible for the availability of the
-infrastructure used to provide compute, networking, and storage resources. As
-such the infrastructure controls and has access to the physical hardware and
-firmware.
+    On the other hand the service provider is responsible for managing services
+    that utilize the infrastructure provided by the infrastructure provider in
+    order to ease the development and deployment of workloads. As such the
+    service provider is not only responsible for deploying the applications, but
+    also to provide services that allow the retrieval of attestation evidence
+    and initialize TEE environments.
 
-On the other hand the service provider is responsible for managing services that
-utilize the infrastructure provided by the infrastructure provider in order to
-ease the development and deployment of workloads. As such the service provider
-is not only responsible for deploying the applications, but also to provide
-services that allow the retrieval of attestation evidence and initialize TEE
-environments.
+  \item[Application Owner]
+    The application owner designs and implements application workloads that will
+    be deployed and orchestrated by the service provider. This role needs to
+    prove to the customer aspects of compliance to the defined requirements. It
+    also defines computing resource requirements for the application workloads
+    in order to run and maintain compliance.
 
-As stated in the introduction the goal is to remove these two entities from the
-trust model of the application. For this reason both roles can be aggregated in
-the same entity.
+  \item[Data Owner]
+    As the owner of the confidential data, this role is concerned with the
+    visibility and integrity of their data and the compliance of the application
+    with the requested requirements.
 
-\subsubsection{Application Owner}
+  \item[Verifier]
+    In order to remove the service provider from the application's trust model,
+    an external party has to verify the service provider's confidentiality
+    claims. The verifier provides an attestation service that appraises evidence
+    and returns attestation results.
+\end{description}
 
-The application owner designs and implements application workloads that will be
-deployed and orchestrated by the service provider. This role needs to prove to
-the customer aspects of compliance to the defined requirements. It also defines
-computing resource requirements for the application workloads in order to run
-and maintain compliance.
+While the application owner and verifier have to be trusted by the data owner,
+the goal is to be able to outsource the management infrastructure and
+orchestration of applications, while not having to trust the infrastructure or
+service provider. This implies that the entities that take on the role of
+infrastructure or service provider should not also be assigned the role of
+application owner or verifier.
 
-\subsubsection{Data Owner}
-
-As the owner of the confidential data, this role is concerned with the
-visibility and integrity of their data and the compliance of the application
-with the requested requirements.
-
-\subsubsection{Verifier}
-
-In order to remove the service provider from the application's trust model, an
-external party has to verify the service provider's confidentiality claims. The
-verifier provides an attestation service that appraises evidence and returns
-attestation results.
+Roles that have the same trust status can be aggregated into the same entity.
+For example the infrastructure provider can at the same time be the service
+provider and the roles application owner, data owner, and verifier can be
+incorporated into the same entity.
 
 \section{Architecture}
 \label{sec:proposal:architecture}
 
 \subsection{Overview}
 
-\begin{figure}
+For convenience, from now on we will refer to confidential data as ``secrets''.
+Figure \ref{fig:proposal:architecture-overview} shows an overview over the
+components used in this architecture proposal, aiding the reader with
+understanding the relation between the components introduced in the next
+section.
+
+\begin{figure}[h!]
   \centering
   \includegraphics[width=\linewidth]{resources/architecture-overview.png}
   \caption[A simplified overview over the Confidential Containers architecture]{
@@ -77,12 +77,6 @@ attestation results.
     green are trusted.}
   \label{fig:proposal:architecture-overview}
 \end{figure}
-
-For convenience, from now on we will refer to confidential data as ``secrets''.
-Figure \ref{fig:proposal:architecture-overview} shows an overview over the
-components used in this architecture proposal, aiding the reader with
-understanding the relation between the components introduced in the next
-section.
 
 \subsection{Components}
 
@@ -149,7 +143,7 @@ executing the code on confidential data.
 \subsubsection{Secret Management Service}
 
 The secret management service is a component that stores confidential data and
-controls the access this data. This management of this service has to be done by
+controls the access this data. The management of this service has to be done by
 the data owner or delegated to a trusted entity.
 
 \subsubsection{Secret Broker Service}
