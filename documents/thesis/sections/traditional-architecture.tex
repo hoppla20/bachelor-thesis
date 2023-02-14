@@ -1,12 +1,9 @@
-\section{Traditional Computing Platform}
+\section{Generalized Distributed Resource Management Architecture}
 
-\subsection{Generalized Distributed Resource Management System Architecture}
+Traditional distributed computing platforms can be split into two layers, the
+control plane and the data plane.
 
-Dynamic Distributed Resource Management Systems usually have a centralized
-control and thus can be split into two layers, the control plane and the data
-plane.
-
-\begin{figure}[h!]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=0.6\linewidth]{resources/dynamic-distributed-resource-management-overview.png}
   \caption{Overview over general components in a Dynamic Distributed Resource Management System}
@@ -31,8 +28,8 @@ The control plane generally consists of the following components:
     A component or set of components responsible for managing all or a specific
     type of computing resources.
   \item[Scheduler]
-    Component responsible with determining the physical or virtual location of a
-    newly requested computing resource.
+    Component responsible with determining the physical location of a newly
+    requested computing resource.
 \end{description}
 
 The data plane aggregates the computing resources managed by the control plane,
@@ -43,40 +40,75 @@ Customers usually interact with the system by using for example graphical or
 terminal applications. There are no additional services that are expected to be
 managed by the customer.
 
-\subsection{Services Models}
+\section{Thread Vectors}
 
-\citetitle{mell2011} \cite{mell2011} defines three distinct models.
-
-\subsubsection{Infrastructure as a Service (IaaS)}
-
-In an IaaS service model the managed resources are classical computing
-resources. This includes -- physical or virtual -- machines, storage, and
-networks.
-
-\subsubsection{Platform as a Service (PaaS)}
-
-A computing platform is an environment in which an application is executed.
-The infrastructure the execution environments are created on is either also
-managed by the platform or is provided by an infrastructure service provider.
-
-Service providers offering a PaaS service model usually not only provide the
-execution environment for an application but also offer services like
-aggregation of logs and metrics and monitoring said applications. The data
-needed for these additional services is provided by the control plane.
-
-To summarize the responsibilities and needed privileges the control plane has on
-the platform:
-
+Infrastructure
 \begin{itemize}
-  \item Creating execution environments on provided infrastructure
-  \item Executing applications in said execution environment
-  \item Monitoring those applications
-  \item Aggregating metrics and logs
+  \item Memory (in-scope)
+  \item Physical (out-of-scope)
 \end{itemize}
 
-In this architecture could execute arbitrary applications in an execution
-environment provided to a customer, making it impossible to shield data inside
-said execution environment. Application logs could also contain sensitive data,
-which are fully accessible by the platform control plane.
+Platform
+\begin{itemize}
+  \item Arbitrary code execution (in-scope)
+  \item Code modification (in-scope)
+  \item Supply-chain (in-scope)
+\end{itemize}
 
+Software threads out-of-scope
 
+\subsection{IaaS Service Model}
+
+In the IaaS Service Model the infrastructure provider would offer the capability
+of allocating infrastructure to the application owner and the application owner
+would be responsible for deploying and orchestrating application workloads onto
+said infrastructure.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.8\linewidth]{resources/distributed-computing-infrastructure-architecture.png}
+  \caption{IaaS service model architecture overview.}
+  \label{fig:iaas-model-architecture}
+\end{figure}
+
+Even though the application owner manages and controls the software stack
+running on the executed infrastructure, the infrastructure provider is still
+able to read and manipulate the main memory of the provided machines.
+
+\subsection{PaaS Service Model}
+
+As outlined in the confidential computing section techniques for shielding data
+at rest and in transit are commonly used. For this reason we will simplify the
+architecture view by leaving out the storage and network infrastructure.
+Applying the generalized distributed resource management architecture to a PaaS
+service model, we now get the following architecture:
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.8\linewidth]{resources/distributed-computing-platform-architecture.png}
+  \caption{Distributed computing platform architecture overview.}
+  \label{fig:distributed-computing-platform-architecture}
+\end{figure}
+
+The illustrated control plane in figure
+\ref{fig:distributed-computing-platform-architecture} is a combination of the
+infrastructure and platform control plane. While the infrastructure control
+plane allocates infrastructure, the platform control plane deploys and
+orchestrates application workloads on said infrastructure. In order to do so the
+platform control plane create execution environments for application workloads
+and executes application code provided by the application owner through a
+repository. This implies that the platform control plane is able to execute
+arbitrary code inside the execution environments it created. And because the
+service provider manages the control plane, the data owner has to trust the
+service provider to run only unmodified application code on his/her data.
+
+The data owner could try to use encryption techniques in order to shield the
+data from the service provider and only provide the decryption key to running
+application workloads after verifying their integrity, but because the service
+provider is able to execute arbitrary code in the provided execution
+environments, it would still be to modify the running workload after the
+decryption key has been supplied.
+
+\subsection{SaaS Service Model}
+
+\todo[inline]{Service Provider would become application owner, defeats purpose}
