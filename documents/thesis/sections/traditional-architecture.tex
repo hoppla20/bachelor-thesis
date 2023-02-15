@@ -1,21 +1,23 @@
-\section{Generalized Distributed Resource Management Architecture}
+As outlined in chapter \ref{ch:confidential-computing} techniques for protecting
+data at rest and in transit are already commonly used today. Which is why we
+won't be focusing on the storage and communication in a distributed computing
+environment. There are mainly two layers we will be focusing on, the physical or
+virtual machine currently running a process which is working on confidential
+data, and the orchestration layer, which coordinates resources in the
+distributed system.
 
-Traditional distributed computing platforms can be split into two layers, the
-control plane and the data plane.
+We will refer to the orchestration layer as the control plane and to the
+resources managed by the control plane as the data plane.
+
+While distributed systems differ greatly in their architectures, the control
+plane often share some common components.
 
 \begin{figure}[ht]
   \centering
   \includegraphics[width=0.6\linewidth]{resources/dynamic-distributed-resource-management-overview.png}
   \caption{Overview over general components in a Dynamic Distributed Resource Management System}
   \label{fig:ddrms-overview}
-\end{figure}
-
-The control plane is a set of components that make global decisions about the
-distributed system as a whole and acts as a single source of truth regarding the
-configuration and state of all components and resources in the distributed
-system.
-
-The control plane generally consists of the following components:
+\end{figure}\todo{Reword distributed computing components diagram}
 
 \begin{description}
   \item[Data Store]
@@ -30,17 +32,17 @@ The control plane generally consists of the following components:
   \item[Scheduler]
     Component responsible with determining the physical location of a newly
     requested computing resource.
+  \item[Monitoring]
+    Collects and analyses events regarding the managed resources and notifies
+    users and other components about failures.
+  \item[Logging]
+    Aggregates logs produced by the managed resources and makes them available
+    to users.
 \end{description}
 
-The data plane aggregates the computing resources managed by the control plane,
-for instance virtual or physical machines, storage, networks, or more abstract
-resources like services, tasks, or secrets.
+\section{Thread Model}
 
-Customers usually interact with the system by using for example graphical or
-terminal applications. There are no additional services that are expected to be
-managed by the customer.
 
-\section{Thread Vectors}
 
 Infrastructure
 \begin{itemize}

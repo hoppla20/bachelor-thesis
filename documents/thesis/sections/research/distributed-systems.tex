@@ -17,26 +17,28 @@ characteristic features of distributed systems.
 \end{description}
 
 In order to achieve this single coherent view, distributed systems are often
-organized to have separate layers of software that operate on top of resources
-that may offer different ways of interaction and abstract their differences into
-unified interfaces. These so called ``middlewares'' are often also responsible
-for providing inter-resource communication, security and accounting services,
-and fault tolerance by masking and recovering from failures.
+organized to have separate layers of software which operate on top of resources
+that may offer different ways of interaction. These so called middlewares are
+often responsible for abstracting the differences into unified interfaces,
+providing inter-resource communication, security and accounting services, and
+fault tolerance by masking and recovering from failures.
 
 \citeauthor{tannenbaum2017} define four design goals of distributed systems:
 
 \begin{description}
-  \item[Resources sharing] 
+  \item[Resource sharing] 
     Distributed systems should make it easier for users and applications to be
     able to access and share resources in order to enable and support
     collaboration and exchange of information.
-  \item[Transparency] 
-    Different types of transparencies are used in order to hide the physical
-    location, differences of interaction, replication, concurrency, and failures
-    of a resource or process inside a distributed system.
+  \item[Transparent distribution] 
+    The fact that processes and resources are distributed across multiple
+    physical machines -- and possibly geographical locations -- should be
+    invisible to the user of a distributed system. There are different types of
+    transparency that can be used in combination in order to achieve a specific
+    degree of transparency.
   \item[Openness]
     The components that make up a distributed system should be open, that means
-    that these components should be interoperable, composable, and extensible,
+    that these components should be interoperable, composable, and extensible
     in order to make the usage and integration with other systems easier.
   \item[Scalability]
     A distributed system should be able to scale in various dimensions. The
@@ -48,18 +50,25 @@ and fault tolerance by masking and recovering from failures.
 \subsection{Distributed Computing}
 
 Distributed computing systems are inherently distributed systems, which means
-they share the fundamental characteristics. The goal of a distributed computing
-system is to facilitate distributed system principles in order to group a set of
-systems at a geographical distance and providing problem-solving environments
-for its users.
+they share the fundamental characteristics and design goals. The goal of a
+distributed computing system is to facilitate distributed system principles in
+order to group a set of systems -- possibly at a geographical distance -- in
+order to provide a problem-solving environments for its users. In general
+distributed computing systems allow users to share, manage the access to, and
+use computing resources like machines, networks, and storage.
 
-In general distributed computing systems allow users to share, manage the
-access to, and use computing resources.
+Two major distributed computing concepts are grid computing and cloud computing.
 
-Cloud Computing systems usually have a centralized control, facilitate open and
-proprietary protocols and interfaces, in order to provide on-demand
+\subsubsection{Grid Computing}
+
+\todo[inline]{Grid Computing}
+
+\subsubsection{Cloud Computing}
+
+Cloud Computing systems usually have a centralized control and facilitate both
+open and proprietary protocols and interfaces in order to provide on-demand
 self-service, broad network access, resource pooling, rapid elasticity, and
-measured services (\cite{mell2011}).
+measured services \cite{mell2011}.
 
 \citetitle{mell2011} \cite{mell2011} defines three distinct service models of
 cloud computing, which can be applied to the general distributed resource
