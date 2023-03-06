@@ -17,3 +17,19 @@ containerd
 runc
 kata
 composability
+enquiry
+platformless
+Platformless
+passthrough
+kube-proxy
+kube-apiserver
+kube-scheduler
+kube-controller-manager
+ConfigMap
+ConfigMaps
+Kubelet
+cloud-init
+Edgeless Systems
+JoinService
+KeyService
+filesystem

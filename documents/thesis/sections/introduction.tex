@@ -1,56 +1,71 @@
-%% LaTeX2e class for student theses
-%% sections/content.tex
-%% 
-%% Karlsruhe Institute of Technology
-%% Institute for Program Structures and Data Organization
-%% Chair for Software Design and Quality (SDQ)
-%%
-%% Dr.-Ing. Erik Burger
-%% burger@kit.edu
-%%
-%% Version 1.3.6, 2022-09-28
+Today distributed computing systems are largely based on the Grid or Cloud
+computing concept. These systems are based on a layered architecture where each
+layer's security is dependent on the security of the layers beneath it, with the
+lowest layer being hardware components and the highest layer being applications
+that implement abstract business logic. Each layer abstracts the complexity of
+the layers below it and provides a simplified interface to the layers above.
 
-\section{Motivation}
-\label{sec:motivation}
+Service providers, entities that provide the resources and services of a
+distributed computing system, are largely concerned with the protection of the
+components that make up the lower layers of distributed computing systems (e.g.
+hypervisors providing virtualization of compute resources) from untrusted code
+(e.g. virtual machines run by the hypervisor). Traditionally, this isolation
+only protects the lower layer from the upper layer, and does not protect the
+confidentiality of the upper layer from the lower layer. As a result, the
+traditional distributed computing model is completely built around the
+assumption that tenants trust the service provider's software stack, including
+privileged software such as hypervisors and firmware, but also the service
+provider's staff, including system administrators but also those with physical
+access to hardware. But this trust is not only present in compute, storage, and
+network resources, today many applications utilize services provided by the
+service provider that implement privileged functionality, such as authentication
+and authorization mechanisms and management of cryptographic key material, in
+order to decrease the complexity of the application and be more cost-efficient.
 
-\section{Goal}
-\label{sec:goal}
+Currently, the best practice for tenants to protect confidential data is to
+manage cryptographic keys themselves, for example by operating an own key
+management service (KMS) or service provider offered hardware security module
+(HSM). While this solution protects cryptographic keys and therefore encrypted
+data from the service provider, these keys are still used to decrypt
+confidential data that is subsequently used by compute resources managed by the
+service provider, making the protection of cryptographic keys from the service
+provider pointless. Other solutions rely on new cryptographic primitives that
+allow specific compute operations to be directly executed on encrypted data
+\cite{monique2013homomorphicencryption, bellare2007searchableencryption}.
+However, these solutions currently are either not applicable to general-purpose
+computing, or have very high performance limitations that make them impractical.
 
-\todo[inline]{Comparison/Evolution to non-confidential}
-\todo[inline]{Remove support development of application}
+This thesis introduces the integration of confidential computing technologies
+into the traditional distributed computing model. Confidential computing is an
+arising technology that provides execution environments, so-called trusted
+execution environments (TEEs), that protect applications by utilizing hardware
+primitives. By implementing the protection of applications in the lowest layer,
+the hardware, it is possible to remove management software such as hypervisors
+and operating systems from the list of required trusted software components and
+service providers from the list of required trusted entities. While TEEs provide
+protection for applications and confidential data, tenants have to be able to
+verify that applications are actually running inside TEEs and that the platform
+that provides TEEs has not been modified by the service provider. Remote
+attestation is an already widely used method for assessing the trustworthiness
+of remote devices, components, and environments. Commercially available
+confidential computing technologies such as Intel SGX and AMD SEV have built-in
+support for producing evidence that can be used for remote attestation.
 
-This thesis focuses on two main goals:
-
-\begin{enumerate}[label=\textbf{\Roman*}]
-  \item Management of infrastructure and orchestration of application workloads
-  running on this infrastructure. Provide application developers services that
-  support them with the development of applications and the deployment of
-  application workloads.
-  \item Make application workloads deployed by these services confidential
-  (definition in section \ref{sec:confidentiality}) and allow verification of
-  this confidentiality by clients and third-parties.
-\end{enumerate}
-
-Services mentioned in goal \goalRef{1} could include
-\begin{itemize}
-  \item continuous delivery and deployment (CD)
-  \item deploying applications like services and computation tasks
-  \item orchestration and monitoring of those applications
-\end{itemize}
-While these services should support the application owner in developing and
-deploying applications (\subGoalRef{1}{1}) it should impose as little
-limitations as possible on the application owner. Decisions regarding the
-programming language, libraries, and frameworks should be made by the
-application owner (\subGoalRef{1}{2}).
-
-Goal \goalRef{2} does not imply application security. Application workloads
-deployed with the help of the service provider should be shielded from the
-infrastructure, the service provider, and its services. But securing the
-application is outside the scope of this goal (\subGoalRef{2}{1}). The
-confidentiality should also not require manual application modification by the
-application owner (\subGoalRef{2}{2}).
-
-%\section{Research Methodology}
-%\label{sec:research-methodology}
-
-%\section{Reference Use Cases}
+This thesis will first research the current state of the traditional distributed
+computing model, confidential computing technology, and remote attestation
+procedures in Chapter \ref{ch:technical-research} and subsequently discuss the
+new \textit{trusted distributed computing model} in which service providers are
+considered untrusted in Chapter \ref{ch:trusted-distributed-computing-model}.
+Section \ref{sec:traditional-distributed-computing} decomposes the two major
+distributed computing models Cloud and Grid computing into a generalized
+architecture, which is evaluated by Section \ref{sec:untrusted-threat-model} in
+order to identify threats from untrusted service providers defining a threat
+model. Chapter \ref{ch:trusted-distributed-computing-model} is mainly concerned
+with the integration of confidential computing (Section
+\ref{sec:confidential-computing}) and remote attestation (Section
+\ref{sec:remote-attestation}) into the traditional distributed computing model
+and defines requirements of the resulting trusted distributed computing model in
+Section \ref{sec:requirements}. Lastly, this thesis will evaluate the untrusted
+distributed computing model upon the threat model (Section
+\ref{sec:evaluation}), and look at two case studies (Section
+\ref{sec:case-studies}).

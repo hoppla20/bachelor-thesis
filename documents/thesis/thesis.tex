@@ -64,12 +64,6 @@
 %% Todos
 \usepackage[obeyDraft]{todonotes}
 
-%% Tables
-\usepackage{multirow}
-\newcolumntype{L}[1]{>{\raggedright\arraybackslash}m{#1}}
-\newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1}}
-\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}m{#1}}
-
 %% ====================================
 %% ====================================
 %% ||                                ||
@@ -125,39 +119,23 @@
 \mainmatter
 
 \chapter{Introduction}
-\label{ch:Introduction}
-
-\include{sections/introduction.tex}
-
-\chapter{Terminology}
-
-\input{sections/terminology.tex}
+\input{sections/introduction.tex}
 
 \chapter{Background}
-
-\input{sections/background/virtualization.tex}
-\input{sections/background/containerization.tex}
+\input{sections/background.tex}
 
 \chapter{Technical Research}
-
-\input{sections/research/distributed-systems.tex}
+\label{ch:technical-research}
+\input{sections/research/distributed-computing.tex}
 \input{sections/research/confidential-computing.tex}
 \input{sections/research/remote-attestation.tex}
-\input{sections/research/solutions.tex}
 
-% Main Content
-
-\chapter{Traditional Distributed Computing Model}
-\input{sections/traditional-architecture.tex}
-
-\chapter{Secure Distributed Computing Architecture Proposal}
-\input{sections/proposal/architecture.tex}
-\input{sections/proposal/comparison.tex}
-\input{sections/proposal/evaluation.tex}
+\chapter{Trusted Distributed Computing Model}
+\label{ch:trusted-distributed-computing-model}
+\input{sections/trusted-distributed-computing-model.tex}
 
 \chapter{Conclusion}
-
-\include{sections/conclusion.tex}
+\input{sections/conclusion.tex}
 
 %% --------------------
 %% |   Bibliography   |
@@ -171,7 +149,7 @@
 %% ----------------
 %% |   Appendix   |
 %% ----------------
-\appendix
-\input{sections/appendix.tex}
+%\appendix
+%\input{sections/appendix.tex}
 
 \end{document}

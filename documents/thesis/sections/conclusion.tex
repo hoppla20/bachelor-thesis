@@ -1,13 +1,36 @@
-%% LaTeX2e class for student theses
-%% sections/conclusion.tex
-%% 
-%% Karlsruhe Institute of Technology
-%% Institute for Program Structures and Data Organization
-%% Chair for Software Design and Quality (SDQ)
-%%
-%% Dr.-Ing. Erik Burger
-%% burger@kit.edu
-%%
-%% Version 1.3.6, 2022-09-28
+The aim of this thesis was the introduction of a new trusted distributed
+computing model that protects the confidentiality of tenants data. The resulting
+model is based on the integration of confidential computing technologies and
+remote attestation procedures into the traditional distributed computing model.
+The defined threat model identified threats and issues that arise when service
+providers of the traditional model become untrusted and the evaluation of the
+trusted model upon this threat model has shown how trusted execution
+environments mitigate these threats and solve issues in existing mitigations.
 
-\dots
+The split of trust however comes with trade-offs. The traditional model allowed
+tenants to shift more and more responsibilities to the service provider,
+reducing the complexity of applications. The trusted model reduces this benefit
+by giving responsibilities that could lead to the compromise of the
+confidentiality of data back to the application.
+
+We have also seen limitations that are currently still present in confidential
+computing technologies that are mainly concerned with performance limitations.
+These performance limitations diminish the cost-efficiency of distributed
+computing systems and in some use cases not acceptable.
+
+Furthermore, confidential computing technologies are still a relatively new, and
+their integrations into other software such as hypervisors, firmware, operating
+systems, and into the remote attestation process are still in early stages,
+requiring further research and testing.
+
+While cloud providers are eager to adopt this new technology and are already
+offering services based on confidential computing technologies, the two case
+studies have shown that both the Infrastructure layer and the Platform layer are
+currently still not fulfilling all requirements of the trusted distributed
+computing model.
+
+Nevertheless, confidential computing provides very promising hardware-based
+primitives that could allow a new generation of trustworthy distributed
+computing systems. Further research will tell whether current limitations and
+implementation challenges can be solved while preserving the confidentiality
+promises.

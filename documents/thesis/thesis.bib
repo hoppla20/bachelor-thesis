@@ -6,10 +6,10 @@
 }
 
 @misc{neuman1994scale,
-  title={Scale in Distributed Systems. In Readings in Dist. Comp. Syst},
-  author={Neuman, C},
-  year={1994},
-  publisher={IEEE Computer Society Press Los Alamitos}
+  title     = {Scale in Distributed Systems. In Readings in Dist. Comp. Syst},
+  author    = {Neuman, C},
+  year      = {1994},
+  publisher = {IEEE Computer Society Press Los Alamitos}
 }
 
 @manual{mell2011,
@@ -29,10 +29,11 @@
   doi     = {10.1109/MCC.2015.51}
 }
 
-@report{ccc2022,
-  organization = {Confidential Computing Consortium},
-  title        = {A Technical Analysis of Confidential Computing},
-  url          = {https://confidentialcomputing.io/ccc-a-technical-analysis-of-confidential-computing-v1-3_updated_november_2022/}
+@report{ccc2022technicalanalysis,
+  author = {Confidential Computing Consortium},
+  title  = {A Technical Analysis of Confidential Computing},
+  year   = {2022},
+  url    = {https://confidentialcomputing.io/ccc-a-technical-analysis-of-confidential-computing-v1-3_updated_november_2022/}
 }
 
 @report{schuster2022,
@@ -53,6 +54,17 @@
   doi       = {10.1109/MICRO56248.2022.00019}
 }
 
+@inproceedings{akram2022limitations,
+  author    = {Akram, Ayaz and Akella, Venkatesh and Peisert, Sean and Lowe-Power, Jason},
+  booktitle = {2022 IEEE International Symposium on Secure and Private Execution Environment Design (SEED)},
+  title     = {SoK: Limitations of Confidential Computing via TEEs for High-Performance Compute Systems},
+  year      = {2022},
+  volume    = {},
+  number    = {},
+  pages     = {121-132},
+  doi       = {10.1109/SEED55351.2022.00018}
+}
+
 @inproceedings{bahmani2021,
   title     = {$\{$CURE$\}$: A Security Architecture with $\{$CUstomizable$\}$ and Resilient Enclaves},
   author    = {Bahmani, Raad and Brasser, Ferdinand and Dessouky, Ghada and Jauernig, Patrick and Klimmek, Matthias and Sadeghi, Ahmad-Reza and Stapf, Emmanuel},
@@ -61,25 +73,484 @@
   year      = {2021}
 }
 
-@misc{rfc9334,
-  series       = {Request for Comments},
-  number       = 9334,
-  howpublished = {RFC 9334},
-  publisher    = {RFC Editor},
-  doi          = {10.17487/RFC9334},
-  url          = {https://www.rfc-editor.org/info/rfc9334},
-  author       = {Henk Birkholz and Dave Thaler and Michael Richardson and Ned Smith and Wei Pan},
+@techreport{rfc9334,
+  author       = {H. Birkholz and D. Thaler and M. Richardson and N. Smith and W. Pan},
   title        = {Remote ATtestation procedureS (RATS) Architecture},
-  pagetotal    = 46,
-  year         = 2023,
-  month        = jan,
-  abstract     = {In network protocol exchanges, it is often useful for one end of a communication to know whether the other end is in an intended operating state. This document provides an architectural overview of the entities involved that make such tests possible through the process of generating, conveying, and evaluating evidentiary Claims. It provides a model that is neutral toward processor architectures, the content of Claims, and protocols.}
+  howpublished = {Internet Requests for Comments},
+  type         = {RFC},
+  number       = {9334},
+  year         = {2023},
+  month        = {January},
+  issn         = {2070-1721},
+  publisher    = {RFC Editor},
+  institution  = {RFC Editor},
+  url          = {https://www.rfc-editor.org/info/rfc9334},
+  doi          = {10.17487/RFC9334}
 }
 
-@inproceedings{tsai2014,
-  title     = {Cooperation and security isolation of library OSes for multi-process applications},
-  author    = {Tsai, Chia-Che and Arora, Kumar Saurabh and Bandi, Nehal and Jain, Bhushan and Jannen, William and John, Jitin and Kalodner, Harry A and Kulkarni, Vrushali and Oliveira, Daniela and Porter, Donald E},
+@techreport{fossati-tls-attestation-02,
+  number      = {draft-fossati-tls-attestation-02},
+  type        = {Internet-Draft},
+  institution = {Internet Engineering Task Force},
+  publisher   = {Internet Engineering Task Force},
+  note        = {Work in Progress},
+  url         = {https://datatracker.ietf.org/doc/draft-fossati-tls-attestation/02/},
+  author      = {Hannes Tschofenig and Thomas Fossati and Paul Howard and Ionuț Mihalcea and Yogesh Deshpande},
+  title       = {{Using Attestation in Transport Layer Security (TLS) and Datagram Transport Layer Security (DTLS)}},
+  pagetotal   = 20,
+  year        = 2022,
+  month       = oct,
+  day         = 24,
+  abstract    = {Attestation is the process by which an entity produces evidence about itself that another party can use to evaluate the trustworthiness of that entity. In use cases that require the use of remote attestation, such as confidential computing or device onboarding, an attester has to convey evidence or attestation results to a relying party. This information exchange may happen at different layers in the protocol stack. This specification provides a generic way of passing evidence and attestation results in the TLS handshake. Functionality-wise this is accomplished with the help of key attestation.}
+}
+
+@inproceedings{tsai2014graphene,
+  author    = {Tsai, Chia-Che and Arora, Kumar Saurabh and Bandi, Nehal and Jain, Bhushan and Jannen, William and John, Jitin and Kalodner, Harry A. and Kulkarni, Vrushali and Oliveira, Daniela and Porter, Donald E.},
+  title     = {Cooperation and Security Isolation of Library OSes for Multi-Process Applications},
+  year      = {2014},
+  isbn      = {9781450327046},
+  publisher = {Association for Computing Machinery},
+  address   = {New York, NY, USA},
+  url       = {https://doi.org/10.1145/2592798.2592812},
+  doi       = {10.1145/2592798.2592812},
+  abstract  = {Library OSes are a promising approach for applications to efficiently obtain the benefits of virtual machines, including security isolation, host platform compatibility, and migration. Library OSes refactor a traditional OS kernel into an application library, avoiding overheads incurred by duplicate functionality. When compared to running a single application on an OS kernel in a VM, recent library OSes reduce the memory footprint by an order-of-magnitude.Previous library OS (libOS) research has focused on single-process applications, yet many Unix applications, such as network servers and shell scripts, span multiple processes. Key design challenges for a multi-process libOS include management of shared state and minimal expansion of the security isolation boundary.This paper presents Graphene, a library OS that seamlessly and efficiently executes both single and multi-process applications, generally with low memory and performance overheads. Graphene broadens the libOS paradigm to support secure, multi-process APIs, such as copy-on-write fork, signals, and System V IPC. Multiple libOS instances coordinate over pipe-like byte streams to implement a consistent, distributed POSIX abstraction. These coordination streams provide a simple vantage point to enforce security isolation.},
   booktitle = {Proceedings of the Ninth European Conference on Computer Systems},
-  pages     = {1--14},
-  year      = {2014}
+  articleno = {9},
+  numpages  = {14},
+  location  = {Amsterdam, The Netherlands},
+  series    = {EuroSys '14}
+}
+
+@inproceedings{jovanbulck2017pagefaultattack,
+  author    = {Jo Van Bulck and Nico Weichbrodt and R{\"u}diger Kapitza and Frank Piessens and Raoul Strackx},
+  title     = {Telling Your Secrets without Page Faults: Stealthy Page {Table-Based} Attacks on Enclaved Execution},
+  booktitle = {26th USENIX Security Symposium (USENIX Security 17)},
+  year      = {2017},
+  isbn      = {978-1-931971-40-9},
+  address   = {Vancouver, BC},
+  pages     = {1041--1056},
+  url       = {https://www.usenix.org/conference/usenixsecurity17/technical-sessions/presentation/van-bulck},
+  publisher = {USENIX Association},
+  month     = aug
+}
+
+@inproceedings{akram2021performance,
+  author    = {Akram, Ayaz and Giannakou, Anna and Akella, Venkatesh and Lowe-Power, Jason and Peisert, Sean},
+  booktitle = {2021 IEEE International Parallel and Distributed Processing Symposium (IPDPS)},
+  title     = {Performance Analysis of Scientific Computing Workloads on General Purpose TEEs},
+  year      = {2021},
+  volume    = {},
+  number    = {},
+  pages     = {1066-1076},
+  doi       = {10.1109/IPDPS49936.2021.00115}
+}
+
+@article{chen2014mlaccelerators,
+  author     = {Chen, Tianshi and Du, Zidong and Sun, Ninghui and Wang, Jia and Wu, Chengyong and Chen, Yunji and Temam, Olivier},
+  title      = {DianNao: A Small-Footprint High-Throughput Accelerator for Ubiquitous Machine-Learning},
+  year       = {2014},
+  issue_date = {March 2014},
+  publisher  = {Association for Computing Machinery},
+  address    = {New York, NY, USA},
+  volume     = {42},
+  number     = {1},
+  issn       = {0163-5964},
+  url        = {https://doi.org/10.1145/2654822.2541967},
+  doi        = {10.1145/2654822.2541967},
+  abstract   = {Machine-Learning tasks are becoming pervasive in a broad range of domains, and in a broad range of systems (from embedded systems to data centers). At the same time, a small set of machine-learning algorithms (especially Convolutional and Deep Neural Networks, i.e., CNNs and DNNs) are proving to be state-of-the-art across many applications. As architectures evolve towards heterogeneous multi-cores composed of a mix of cores and accelerators, a machine-learning accelerator can achieve the rare combination of efficiency (due to the small number of target algorithms) and broad application scope.Until now, most machine-learning accelerator designs have focused on efficiently implementing the computational part of the algorithms. However, recent state-of-the-art CNNs and DNNs are characterized by their large size. In this study, we design an accelerator for large-scale CNNs and DNNs, with a special emphasis on the impact of memory on accelerator design, performance and energy.We show that it is possible to design an accelerator with a high throughput, capable of performing 452 GOP/s (key NN operations such as synaptic weight multiplications and neurons outputs additions) in a small footprint of 3.02 mm2 and 485 mW; compared to a 128-bit 2GHz SIMD processor, the accelerator is 117.87x faster, and it can reduce the total energy by 21.08x. The accelerator characteristics are obtained after layout at 65 nm. Such a high throughput in a small footprint can open up the usage of state-of-the-art machine-learning algorithms in a broad set of systems and for a broad set of applications.},
+  journal    = {SIGARCH Comput. Archit. News},
+  month      = {feb},
+  pages      = {269–284},
+  numpages   = {16},
+  keywords   = {neural networks, accelerator, memory}
+}
+
+@inproceedings{jiang2022cronus,
+  author    = {Jiang, Jianyu and Qi, Ji and Shen, Tianxiang and Chen, Xusheng and Zhao, Shixiong and Wang, Sen and Chen, Li and Zhang, Gong and Luo, Xiapu and Cui, Heming},
+  booktitle = {2022 55th IEEE/ACM International Symposium on Microarchitecture (MICRO)},
+  title     = {CRONUS: Fault-isolated, Secure and High-performance Heterogeneous Computing for Trusted Execution Environment},
+  year      = {2022},
+  volume    = {},
+  number    = {},
+  pages     = {124-143},
+  doi       = {10.1109/MICRO56248.2022.00019}
+}
+
+@article{foster2001grid,
+  title   = {The anatomy of the grid},
+  author  = {Foster, Ian and Kesselman, Carl and Tuecke, Steven},
+  journal = {Lecture Notes in Computer Science},
+  volume  = {2150},
+  number  = {2001},
+  pages   = {1--28},
+  year    = {2001}
+}
+
+@inproceedings{6657268,
+  author    = {Gruhn, Michael and Müller, Tilo},
+  booktitle = {2013 International Conference on Availability, Reliability and Security},
+  title     = {On the Practicability of Cold Boot Attacks},
+  year      = {2013},
+  volume    = {},
+  number    = {},
+  pages     = {390-397},
+  doi       = {10.1109/ARES.2013.52}
+}
+
+@inproceedings{9376174,
+  author    = {Liang, Xingwei and Kim, Yoohwan},
+  booktitle = {2021 IEEE 11th Annual Computing and Communication Workshop and Conference (CCWC)},
+  title     = {A Survey on Security Attacks and Solutions in the IoT Network},
+  year      = {2021},
+  volume    = {},
+  number    = {},
+  pages     = {0853-0859},
+  doi       = {10.1109/CCWC51732.2021.9376174}
+}
+
+@article{lampson1992authentication,
+  author     = {Lampson, Butler and Abadi, Mart\'{\i}n and Burrows, Michael and Wobber, Edward},
+  title      = {Authentication in Distributed Systems: Theory and Practice},
+  year       = {1992},
+  issue_date = {Nov. 1992},
+  publisher  = {Association for Computing Machinery},
+  address    = {New York, NY, USA},
+  volume     = {10},
+  number     = {4},
+  issn       = {0734-2071},
+  url        = {https://doi.org/10.1145/138873.138874},
+  doi        = {10.1145/138873.138874},
+  abstract   = {We describe a theory of authentication and a system that implements it. Our theory is based on the notion of principal and a “speaks for” relation between principals. A simple principal either has a name or is a communication channel; a compound principal can express an adopted role or delegated authority. The theory shows how to reason about a principal's authority by deducing the other principals that it can speak for; authenticating a channel is one important application. We use the theory to explain many existing and proposed security mechanisms. In particular, we describe the system we have built. It passes principals efficiently as arguments or results of remote procedure calls, and it handles public and shared key encryption, name lookup in a large name space, groups of principals, program loading, delegation, access control, and revocation.},
+  journal    = {ACM Trans. Comput. Syst.},
+  month      = {nov},
+  pages      = {265–310},
+  numpages   = {46},
+  keywords   = {interprocess communication, loading programs, certification authority, speaks for, role, path name, delegation, group, trusted computing base, key distribution, secure channel, principal}
+}
+
+@inproceedings{woo1992authorization,
+  title        = {Authorization in distributed systems: a formal approach.},
+  author       = {Woo, Thomas YC and Lam, Simon S},
+  booktitle    = {IEEE Symposium on Security and Privacy},
+  pages        = {33--50},
+  year         = {1992},
+  organization = {Citeseer}
+}
+
+@inproceedings{aljaberi2014datasecurity,
+  author    = {Al-Jaberi, Mohammed Faez and Zainal, Anazida},
+  booktitle = {2014 International Symposium on Biometrics and Security Technologies (ISBAST)},
+  title     = {Data integrity and privacy model in cloud computing},
+  year      = {2014},
+  volume    = {},
+  number    = {},
+  pages     = {280-284},
+  doi       = {10.1109/ISBAST.2014.7013135}
+}
+
+@article{roderomerino2012safepaasclouds,
+  title    = {Building safe PaaS clouds: A survey on security in multitenant software platforms},
+  journal  = {Computers \& Security},
+  volume   = {31},
+  number   = {1},
+  pages    = {96-108},
+  year     = {2012},
+  issn     = {0167-4048},
+  doi      = {https://doi.org/10.1016/j.cose.2011.10.006},
+  url      = {https://www.sciencedirect.com/science/article/pii/S0167404811001313},
+  author   = {Luis Rodero-Merino and Luis M. Vaquero and Eddy Caron and Adrian Muresan and Frédéric Desprez},
+  keywords = {Security, Cloud, PaaS, Multitenancy, Container, Java, .NET},
+  abstract = {This paper surveys the risks brought by multitenancy in software platforms, along with the most prominent solutions proposed to address them. A multitenant platform hosts and executes software from several users (tenants). The platform must ensure that no malicious or faulty code from any tenant can interfere with the normal execution of other users’ code or with the platform itself. This security requirement is specially relevant in Platform-as-a-Service (PaaS) clouds. PaaS clouds offer an execution environment based on some software platform. Unless PaaS systems are deemed as safe environments users will be reluctant to trust them to run any relevant application. This requires to take into account how multitenancy is handled by the software platform used as the basis of the PaaS offer. This survey focuses on two technologies that are or will be the platform-of-choice in many PaaS clouds: Java and .NET. We describe the security mechanisms they provide, study their limitations as multitenant platforms and analyze the research works that try to solve those limitations. We include in this analysis some standard container technologies (such as Enterprise Java Beans) that can be used to standardize the hosting environment of PaaS clouds. Also we include a brief discussion of Operating Systems (OSs) traditional security capacities and why OSs are unlikely to be chosen as the basis of PaaS offers. Finally, we describe some research initiatives that reinforce security by monitoring the execution of untrusted code, whose results can be of interest in multitenant systems.}
+}
+
+@article{faheem2017clouddatatintegrity,
+  title    = {A survey of cloud computing data integrity schemes: Design challenges, taxonomy and future trends},
+  journal  = {Computers \& Security},
+  volume   = {65},
+  pages    = {29-49},
+  year     = {2017},
+  issn     = {0167-4048},
+  doi      = {https://doi.org/10.1016/j.cose.2016.10.006},
+  url      = {https://www.sciencedirect.com/science/article/pii/S0167404816301377},
+  author   = {Faheem Zafar and Abid Khan and Saif Ur Rehman Malik and Mansoor Ahmed and Adeel Anjum and Majid Iqbal Khan and Nadeem Javed and Masoom Alam and Fuzel Jamil},
+  keywords = {Cloud computing security, Storage as a service, Data integrity, Privacy preserving audit, Communication complexity},
+  abstract = {Cloud computing has gained tremendous popularity in recent years. By outsourcing computation and storage requirements to public providers and paying for the services used, customers can relish upon the advantages of this new paradigm. Cloud computing provides with a comparably lower-cost, scalable, a location-independent platform for managing clients' data. Compared to a traditional model of computing, which uses dedicated in-house infrastructure, cloud computing provides unprecedented benefits regarding cost and reliability. Cloud storage is a new cost-effective paradigm that aims at providing high availability, reliability, massive scalability and data sharing. However, outsourcing data to a cloud service provider introduces new challenges from the perspectives of data correctness and security. Over the years, many data integrity schemes have been proposed for protecting outsourced data. This paper aims to enhance the understanding of security issues associated with cloud storage and highlights the importance of data integrity schemes for outsourced data. In this paper, we have presented a taxonomy of existing data integrity schemes use for cloud storage. A comparative analysis of existing schemes is also provided along with a detailed discussion on possible security attacks and their mitigations. Additionally, we have discussed design challenges such as computational efficiency, storage efficiency, communication efficiency, and reduced I/O in these schemes. Furthermore, we have highlighted future trends and open issues, for future research in cloud storage security.}
+}
+
+@article{yang2020datasecuritycloudstorage,
+  author  = {Yang, Pan and Xiong, Naixue and Ren, Jingli},
+  journal = {IEEE Access},
+  title   = {Data Security and Privacy Protection for Cloud Storage: A Survey},
+  year    = {2020},
+  volume  = {8},
+  number  = {},
+  pages   = {131723-131740},
+  doi     = {10.1109/ACCESS.2020.3009876}
+}
+
+@article{walker2021dataintegritycloud,
+  author   = {Walker, Ieuan and Hewage, Chaminda and Jayal, Ambikesh},
+  title    = {Provable Data Possession (PDP) and Proofs of Retrievability (POR) of Current Big User Data},
+  journal  = {SN Computer Science},
+  year     = {2021},
+  month    = {Nov},
+  day      = {24},
+  volume   = {3},
+  number   = {1},
+  pages    = {83},
+  abstract = {A growing trend over the last few years is storage outsourcing, where the concept of third-party data warehousing has become more popular. This trend prompts several interesting privacy and security issues. One of the biggest concerns with third-party data storage providers is accountability. This article, critically reviews two schemas/algorithms that allow users to check the integrity and availability of their outsourced data on untrusted data stores (i.e., third-party data storages). The reviewed schemas are provable data possession (PDP) and proofs of retrievability (POR). Both are cryptographic protocols designed to provide clients the assurance that their data are secure on the untrusted data storages. Furthermore, a conceptual framework is proposed to mitigate the weaknesses of the current storage solutions.},
+  issn     = {2661-8907},
+  doi      = {10.1007/s42979-021-00968-z},
+  url      = {https://doi.org/10.1007/s42979-021-00968-z}
+}
+
+@article{weis2014protecting,
+  title   = {Protecting data in-use from firmware and physical attacks},
+  author  = {Weis, Stephen},
+  journal = {Black Hat},
+  year    = {2014}
+}
+
+@inproceedings{grote2019cryptagility,
+  author    = {Grote, Olaf and Ahrens, Andreas and Benavente-Peces, César},
+  booktitle = {2019 International Interdisciplinary PhD Workshop (IIPhDW)},
+  title     = {A Review of Post-quantum Cryptography and Crypto-agility Strategies},
+  year      = {2019},
+  volume    = {},
+  number    = {},
+  pages     = {115-120},
+  doi       = {10.1109/IIPHDW.2019.8755433}
+}
+
+@inproceedings{sang2011dmacountermeasures,
+  author    = {Sang, Fernand Lone and Nicomette, Vincent and Deswarte, Yves},
+  booktitle = {2011 First SysSec Workshop},
+  title     = {I/O Attacks in Intel PC-based Architectures and Countermeasures},
+  year      = {2011},
+  volume    = {},
+  number    = {},
+  pages     = {19-26},
+  doi       = {10.1109/SysSec.2011.10}
+}
+
+@article{reuben2007surveyvirtualmachinesecurity,
+  title     = {A survey on virtual machine security},
+  author    = {Reuben, Jenni Susan},
+  journal   = {Helsinki University of Technology},
+  volume    = {2},
+  number    = {36},
+  year      = {2007},
+  publisher = {Citeseer}
+}
+
+@inproceedings{perezbotero2013hypervisorvulnerabilities,
+  author    = {Perez-Botero, Diego and Szefer, Jakub and Lee, Ruby B.},
+  title     = {Characterizing Hypervisor Vulnerabilities in Cloud Computing Servers},
+  year      = {2013},
+  isbn      = {9781450320672},
+  publisher = {Association for Computing Machinery},
+  address   = {New York, NY, USA},
+  url       = {https://doi.org/10.1145/2484402.2484406},
+  doi       = {10.1145/2484402.2484406},
+  abstract  = {The rise of the Cloud Computing paradigm has led to security concerns, taking into account that resources are shared and mediated by a Hypervisor which may be targeted by rogue guest VMs and remote attackers. In order to better define the threats to which a cloud server's Hypervisor is exposed, we conducted a thorough analysis of the codebase of two popular open-source Hypervisors, Xen and KVM, followed by an extensive study of the vulnerability reports associated with them. Based on our findings, we propose a characterization of Hypervisor Vulnerabilities comprised of three dimensions: the trigger source (i.e. where the attacker is located), the attack vector (i.e. the Hypervisor functionality that enables the security breach), and the attack target (i.e. the runtime domain that is compromised). This can be used to understand potential paths different attacks can take, and which vulnerabilities enable them. Moreover, most common paths can be discovered to learn where the defenses should be focused, or conversely, least common paths can be used to find yet-unexplored ways attackers may use to get into the system.},
+  booktitle = {Proceedings of the 2013 International Workshop on Security in Cloud Computing},
+  pages     = {3–10},
+  numpages  = {8},
+  keywords  = {secure cloud computing, hypervisor vulnerabilities, attack vectors, vulnerability categorization, virtualization},
+  location  = {Hangzhou, China},
+  series    = {Cloud Computing '13}
+}
+
+@inproceedings{jin2011securevirtualization,
+  author    = {Jin, Seongwook and Ahn, Jeongseob and Cha, Sanghoon and Huh, Jaehyuk},
+  title     = {Architectural Support for Secure Virtualization under a Vulnerable Hypervisor},
+  year      = {2011},
+  isbn      = {9781450310536},
+  publisher = {Association for Computing Machinery},
+  address   = {New York, NY, USA},
+  url       = {https://doi.org/10.1145/2155620.2155652},
+  doi       = {10.1145/2155620.2155652},
+  abstract  = {Although cloud computing has emerged as a promising future computing model, security concerns due to malicious tenants have been deterring its fast adoption. In cloud computing, multiple tenants may share physical systems by using virtualization techniques. In such a virtualized system, a software hypervisor creates virtual machines (VMs) from the physical system, and provides each user with an isolated VM. However, the hypervisor, with a full control over hardware resources, can access the memory pages of guest VMs without any restriction. By compromising the hypervisor, a malicious user can access the memory contents of the VMs used by other users.In this paper, we propose a hardware-based mechanism to protect the memory of guest VMs from unauthorized accesses, even with an untrusted hypervisor. With this mechanism, memory isolation is provided by the secure hardware, which is much less vulnerable than the software hypervisor. The proposed mechanism extends the current hardware support for memory virtualization with a small extra hardware cost. The hypervisor can still flexibly allocate physical memory pages to virtual machines for efficient resource management. However, the hypervisor can update nested page tables only through the secure hardware mechanism, which verifies each mapping change. Using the hardware-oriented mechanism in each system securing guest VMs under a vulnerable hypervisor, this paper also proposes a cloud system architecture, which supports the authenticated launch and migration of guest VMs.},
+  booktitle = {Proceedings of the 44th Annual IEEE/ACM International Symposium on Microarchitecture},
+  pages     = {272–283},
+  numpages  = {12},
+  location  = {Porto Alegre, Brazil},
+  series    = {MICRO-44}
+}
+
+@inproceedings{szefer2012hypvervisorsecurevirtualization,
+  author    = {Szefer, Jakub and Lee, Ruby B.},
+  title     = {Architectural Support for Hypervisor-Secure Virtualization},
+  year      = {2012},
+  isbn      = {9781450307598},
+  publisher = {Association for Computing Machinery},
+  address   = {New York, NY, USA},
+  url       = {https://doi.org/10.1145/2150976.2151022},
+  doi       = {10.1145/2150976.2151022},
+  abstract  = {Virtualization has become a standard part of many computer systems. A key part of virtualization is the all-powerful hypervisor which manages the physical platform and can access all of its resources, including memory assigned to the guest virtual machines (VMs). Continuing releases of bug reports and exploits in the virtualization software show that defending the hypervisor against attacks is very difficult. In this work, we present hypervisor-secure virtualization - a new research direction with the goal of protecting the guest VMs from an untrusted hypervisor. We also present the HyperWall architecture which achieves hypervisor-secure virtualization, using hardware to provide the protections. HyperWall allows a hypervisor to freely manage the memory, processor cores and other resources of a platform. Yet once VMs are created, our new Confidentiality and Integrity Protection (CIP) tables protect the memory of the guest VMs from accesses by the hypervisor or by DMA, depending on the customer's specification. If a hypervisor does become compromised, e.g. by an attack from a malicious VM, it cannot be used in turn to attack other VMs. The protections are enabled through minimal modifications to the microprocessor and memory management units. Whereas much of the previous work concentrates on protecting the hypervisor from attacks by guest VMs, we tackle the problem of protecting the guest VMs from the hypervisor.},
+  booktitle = {Proceedings of the Seventeenth International Conference on Architectural Support for Programming Languages and Operating Systems},
+  pages     = {437–450},
+  numpages  = {14},
+  keywords  = {attestation, trust evidence, hardware security, integrity, cloud computing, confidentiality, virtualization, hypervisor, computer architecture, security},
+  location  = {London, England, UK},
+  series    = {ASPLOS XVII}
+}
+
+@inproceedings{li2019protectingvmfromhypervisor,
+  title     = {Protecting cloud virtual machines from hypervisor and host operating system exploits},
+  author    = {Li, Shih-Wei and Koh, John S and Nieh, Jason},
+  booktitle = {Proceedings of the 28th USENIX Security Symposium},
+  year      = {2019}
+}
+
+@inproceedings{mi2020disaggregatednestedvirtualization,
+  title     = {(Mostly) Exitless VM protection from untrusted hypervisor through disaggregated nested virtualization},
+  author    = {Mi, Zeyu and Li, Dingji and Chen, Haibo and Zang, Binyu and Guan, Haibing},
+  booktitle = {Proceedings of the 29th USENIX Conference on Security Symposium},
+  pages     = {1695--1712},
+  year      = {2020}
+}
+
+@inproceedings{ristenpart2009getoffmycloud,
+  author    = {Ristenpart, Thomas and Tromer, Eran and Shacham, Hovav and Savage, Stefan},
+  title     = {Hey, You, Get off of My Cloud: Exploring Information Leakage in Third-Party Compute Clouds},
+  year      = {2009},
+  isbn      = {9781605588940},
+  publisher = {Association for Computing Machinery},
+  address   = {New York, NY, USA},
+  url       = {https://doi.org/10.1145/1653662.1653687},
+  doi       = {10.1145/1653662.1653687},
+  abstract  = {Third-party cloud computing represents the promise of outsourcing as applied to computation. Services, such as Microsoft's Azure and Amazon's EC2, allow users to instantiate virtual machines (VMs) on demand and thus purchase precisely the capacity they require when they require it. In turn, the use of virtualization allows third-party cloud providers to maximize the utilization of their sunk capital costs by multiplexing many customer VMs across a shared physical infrastructure. However, in this paper, we show that this approach can also introduce new vulnerabilities. Using the Amazon EC2 service as a case study, we show that it is possible to map the internal cloud infrastructure, identify where a particular target VM is likely to reside, and then instantiate new VMs until one is placed co-resident with the target. We explore how such placement can then be used to mount cross-VM side-channel attacks to extract information from a target VM on the same machine.},
+  booktitle = {Proceedings of the 16th ACM Conference on Computer and Communications Security},
+  pages     = {199–212},
+  numpages  = {14},
+  keywords  = {side channels, virtual machine security, cloud computing},
+  location  = {Chicago, Illinois, USA},
+  series    = {CCS '09}
+}
+
+@inproceedings{clarke2003badbeans,
+  author    = {Clarke, Dave and Richmond, Michael and Noble, James},
+  title     = {Saving the World from Bad Beans: Deployment-Time Confinement Checking},
+  year      = {2003},
+  isbn      = {1581137125},
+  publisher = {Association for Computing Machinery},
+  address   = {New York, NY, USA},
+  url       = {https://doi.org/10.1145/949305.949339},
+  doi       = {10.1145/949305.949339},
+  abstract  = {The Enterprise JavaBeans (EJB) framework requires developers to preserve architectural integrity constraints when writing EJB components. Breaking these constraints allows components to violate the transaction protocol, bypass security mechanisms, disable object persistence, and be susceptible to malicious attacks from other EJBs. We present an object confinement discipline that allows static verification of components' integrity as they are deployed into an EJB server. The confinement rules are simple for developers to understand, require no annotation to the code of EJB components, and can be efficiently enforced in existing EJB servers.},
+  booktitle = {Proceedings of the 18th Annual ACM SIGPLAN Conference on Object-Oriented Programing, Systems, Languages, and Applications},
+  pages     = {374–387},
+  numpages  = {14},
+  keywords  = {enterprise JavaBeans, confinement, deployment tools},
+  location  = {Anaheim, California, USA},
+  series    = {OOPSLA '03}
+}
+
+@inproceedings{kudo2021integrityprotectionkubernetes,
+  author    = {Kudo, Ruriko and Kitahara, Hirokuni and Gajananan, Kugamoorthy and Watanabe, Yuji},
+  booktitle = {2021 IEEE 14th International Conference on Cloud Computing (CLOUD)},
+  title     = {Integrity Protection for Kubernetes Resource Based on Digital Signature},
+  year      = {2021},
+  volume    = {},
+  number    = {},
+  pages     = {288-296},
+  doi       = {10.1109/CLOUD53861.2021.00042}
+}
+
+@article{monique2013homomorphicencryption,
+  title    = {Homomorphic Encryption},
+  journal  = {Procedia Computer Science},
+  volume   = {20},
+  pages    = {502-509},
+  year     = {2013},
+  note     = {Complex Adaptive Systems},
+  issn     = {1877-0509},
+  doi      = {https://doi.org/10.1016/j.procs.2013.09.310},
+  url      = {https://www.sciencedirect.com/science/article/pii/S1877050913011101},
+  author   = {Monique Ogburn and Claude Turner and Pushkar Dahal},
+  keywords = {ciphertext, fully homomorphic encryption, partially homomorphic encryption, encrypt, decrypt},
+  abstract = {The study of homomorphic encryption techniques has led to significant advancements in the computing domain, particularly in the sphere of cloud computing. Homomorphic encryption provides a means for securely transmitting and storing confidential information across and in a computer system. The aim of this paper is to discuss the concepts and significance of homomorphic encryption along with the subdivisions and limitations associated with this type of encryption scheme. Recent studies conducted on the topic of homomorphic encryption are highlighted and some customary models of homomorphism are demonstrated. We also developed a proof of concept algorithm that demonstrates a practical use for a homomorphic encryption technique, the results of our algorithm are provided. The applications of homomorphic encryption methods are vast outside of the computational realm, and its purpose in other fields will be explored.}
+}
+
+@inproceedings{bellare2007searchableencryption,
+  title        = {Deterministic and efficiently searchable encryption},
+  author       = {Bellare, Mihir and Boldyreva, Alexandra and O’Neill, Adam},
+  booktitle    = {Advances in Cryptology-CRYPTO 2007: 27th Annual International Cryptology Conference, Santa Barbara, CA, USA, August 19-23, 2007. Proceedings 27},
+  pages        = {535--552},
+  year         = {2007},
+  organization = {Springer}
+}
+
+@manual{arm2022ccasoftwarestack,
+  author  = {ARM Limited},
+  title   = {Arm Confidential Compute Architecture Software Stack Guide},
+  version = {r1p0},
+  date    = {2022-09-13},
+  urldata = {2023-01-22},
+  url     = {https://documentation-service.arm.com/static/6320744be60c8274af98e79a}
+}
+
+@misc{costan2016sgx,
+  author       = {Victor Costan and Srinivas Devadas},
+  title        = {Intel SGX Explained},
+  howpublished = {Cryptology ePrint Archive, Paper 2016/086},
+  year         = {2016},
+  note         = {\url{https://eprint.iacr.org/2016/086}},
+  url          = {https://eprint.iacr.org/2016/086}
+}
+
+@report{amd2021sev,
+  title   = {AMD Memory Encryption},
+  author  = {AMD},
+  data    = {2021-10-18},
+  version = {9}
+}
+
+@report{amd2017seves,
+  title  = {Protecting VM Register State With SEV-ES},
+  author = {AMD},
+  data   = {2017-02-17}
+}
+
+@report{amd2020sevsnp,
+  title   = {Strengthening VM isolation with integrity protection and more},
+  author  = {AMD},
+  version = {1.54},
+  date    = {2020-01}
+}
+
+@techreport{rfc5246,
+  author       = {T. Dierks and E. Rescorla},
+  title        = {The Transport Layer Security (TLS) Protocol Version 1.2},
+  howpublished = {Internet Requests for Comments},
+  type         = {RFC},
+  number       = {5246},
+  year         = {2008},
+  month        = {August},
+  issn         = {2070-1721},
+  publisher    = {RFC Editor},
+  institution  = {RFC Editor},
+  url          = {http://www.rfc-editor.org/rfc/rfc5246.txt},
+  note         = {\url{http://www.rfc-editor.org/rfc/rfc5246.txt}}
+}
+
+@article{fei2021sgxvulnerabilities,
+  author     = {Fei, Shufan and Yan, Zheng and Ding, Wenxiu and Xie, Haomeng},
+  title      = {Security Vulnerabilities of SGX and Countermeasures: A Survey},
+  year       = {2021},
+  issue_date = {July 2022},
+  publisher  = {Association for Computing Machinery},
+  address    = {New York, NY, USA},
+  volume     = {54},
+  number     = {6},
+  issn       = {0360-0300},
+  url        = {https://doi.org/10.1145/3456631},
+  doi        = {10.1145/3456631},
+  abstract   = {Trusted Execution Environments (TEEs) have been widely used in many security-critical applications. The popularity of TEEs derives from its high security and trustworthiness supported by secure hardware. Intel Software Guard Extensions (SGX) is one of the most representative TEEs that creates an isolated environment on an untrusted operating system, thus providing run-time protection for the execution of security-critical code and data. However, Intel SGX is far from the acme of perfection. It has become a target of various attacks due to its security vulnerabilities. Researchers and practitioners have paid attention to the security vulnerabilities of SGX and investigated optimization solutions in real applications. Unfortunately, existing literature lacks a thorough review of security vulnerabilities of SGX and their countermeasures. In this article, we fill this gap. Specifically, we propose two sets of criteria for estimating security risks of existing attacks and evaluating defense effects brought by attack countermeasures. Furthermore, we propose a taxonomy of SGX security vulnerabilities and shed light on corresponding attack vectors. After that, we review published attacks and existing countermeasures, as well as evaluate them by employing our proposed criteria. At last, on the strength of our survey, we propose some open challenges and future directions in the research of SGX security.},
+  journal    = {ACM Comput. Surv.},
+  month      = {jul},
+  articleno  = {126},
+  numpages   = {36},
+  keywords   = {trustworthiness, side-channel attacks, security, Trusted execution environment}
 }

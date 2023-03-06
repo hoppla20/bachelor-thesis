@@ -1,0 +1,24 @@
+\begin{tabularx}{\linewidth}{
+    | p{8em}
+    | >{\raggedright\arraybackslash}X
+    | >{\raggedright\arraybackslash}X
+    | >{\raggedright\arraybackslash}X
+    |
+  }
+  \hline
+  Resource          & Threat                                      & Mitigation                                                                                              & Issue                                                                                                                               \\
+  \hline
+  \hline
+  Storage Resources & Access of data resting in storage resources & Application level encryption of data resting in storage resources                                       &                                                                                                                                     \\
+  \hline
+  Network Resources & Access of data traversing network resources & Application level authentication and authorization, and encryption of data traversing network resources &                                                                                                                                     \\
+  \hline
+  Compute Resources & DMA attacks                                 & Software and Hardware based mitigations available                                                       & Lack of a trusted component that can verify that mitigation is working as intended                                                  \\
+  \cline{2-4}
+                    & PME attacks                                 &                                                                                                         & No mitigation                                                                                                                       \\
+  \cline{2-4}
+                    & Virtualization-based attacks                & Properly selected, configured, patched, and unmodified hypervisor                                       & Lack of trusted component that can enforce or verify the selection, configuration, update policies, and integrity of the hypervisor \\
+  \cline{2-4}
+                    & BI attacks                                  & Secure Boot \& \newline Measured Boot                                                                   & Lack of a trusted component that can perform measurements and/or verification                                                       \\
+  \hline
+\end{tabularx}

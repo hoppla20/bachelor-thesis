@@ -102,7 +102,11 @@
 \ifdraft{
   \typearea[0mm]{10} % draft
 }{
-  \typearea[10mm]{15}
+  \if@twoside
+    \typearea[20mm]{15}
+  \else
+    \typearea[10mm]{15}
+  \fi
 }
 \RequirePackage[headsepline,draft=false]{scrlayer-scrpage}
 \pagestyle{scrheadings}
@@ -210,6 +214,8 @@ at the Department of Informatics\\
 \RequirePackage{booktabs}
 \RequirePackage{longtable}
 \RequirePackage{array}
+\RequirePackage{tabularx}
+\RequirePackage{multirow}
 
 % show graphics in draft mode
 \RequirePackage{graphicx}
@@ -231,3 +237,6 @@ at the Department of Informatics\\
     }%
     \let\theauthor\@author
 }
+
+% floating objects
+\RequirePackage{float}

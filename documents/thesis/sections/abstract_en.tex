@@ -12,21 +12,23 @@
 
 \Abstract
 
-Distributed systems, like grid and cloud computing, have become essential for
-sharing of and accessing to remote resources. These systems are often used for
-economic reasons or to simplify collaboration and exchange of information.
-Because the maintenance and management of these distributed systems and the
-hardware it is running on is very complex and expensive, these tasks are often
-outsourced to service providers.
-
-However, certain industries may have stricter security and trust requirements
-and governments too are growing more concerned with the privacy and
-confidentiality of user data\todo{DSGVO?}. Confidential computing is an upcoming
-technology that seeks to address this trust issue by guaranteeing both privacy
-and integrity of data and code while enabling remote attestation.
-
-This paper will explore different platforms that facilitate sharing of resources
-while make use of confidential computing in order to preserve the privacy of
-client data. It will also investigate limitations imposed by the use of
-confidential computing and finally showcase challenges of realizing a secure
-joint distributed system.
+In the current computing landscape distributed computing systems, largely based
+on Grid and Cloud computing, have become the main ways of sharing infrastructure
+resources, such as compute, storage, and network resources, while also providing
+services that ease the development and orchestration of applications on said
+resources. On the one hand, the usage of these resources and service come with
+benefits such as higher availability, reducing complexity of applications, and
+cost-efficiency, on the other hand, traditionally these benefits come with the
+cost of fully trusting the provider of the resources and services with
+potentially confidential data. Nevertheless, as consumer and government demands
+for data privacy increase (e.g., GDPR coming into effect in the EU in 2018), the
+distributed computing model must adapt to meet the increasingly strict trust
+requirements. The advent of confidential computing enables a new distributed
+computing model where the provider of infrastructure resources becomes untrusted
+by providing hardware-based trusted execution environments (TEEs). This thesis
+researches the current state of trusted execution environment technologies,
+remote attestation procedures that allow tenants to verify the trustworthiness
+of TEEs, and introduces a new \textit{trusted distributed computing model} that
+integrates these two concepts into the traditional distributed computing model
+in order to remove the provider of the distributed computing system from the
+list of trusted parties.
