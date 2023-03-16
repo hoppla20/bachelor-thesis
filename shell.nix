@@ -4,5 +4,6 @@ pkgs.mkShell {
     gnumake
     texlive.combined.scheme-full
     imagemagick
+    pandoc
   ];
 }

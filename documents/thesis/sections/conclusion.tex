@@ -1,36 +1,37 @@
 The aim of this thesis was the introduction of a new trusted distributed
-computing model that protects the confidentiality of tenants data. The resulting
-model is based on the integration of confidential computing technologies and
-remote attestation procedures into the traditional distributed computing model.
-The defined threat model identified threats and issues that arise when service
-providers of the traditional model become untrusted and the evaluation of the
-trusted model upon this threat model has shown how trusted execution
-environments mitigate these threats and solve issues in existing mitigations.
+computing model that protects the confidentiality of tenant data from untrusted
+service providers. Using a threat model that identified threats and issues that
+arise when service providers become untrusted, this thesis evaluated the trusted
+distributed computing model, which integrates confidential computing and remote
+attestation into the traditional distributed computing model. The evaluation
+showed that confidential computing combined with remote attestation can solve
+the threats and issues of the traditional model.
 
-The split of trust however comes with trade-offs. The traditional model allowed
-tenants to shift more and more responsibilities to the service provider,
-reducing the complexity of applications. The trusted model reduces this benefit
-by giving responsibilities that could lead to the compromise of the
-confidentiality of data back to the application.
+However, the removal of the service provider as a trusted entity comes with a
+trade-off. While the traditional model allowed tenants to shift more and more
+responsibilities to the service provider, reducing the complexity of
+applications, the trusted model reduces this benefit by giving responsibilities
+that could lead to the compromise of the confidentiality of data back to the
+application owner.
 
-We have also seen limitations that are currently still present in confidential
-computing technologies that are mainly concerned with performance limitations.
-These performance limitations diminish the cost-efficiency of distributed
-computing systems and in some use cases not acceptable.
+Additionally, current confidential computing technologies still have performance
+limitations that either lessen the cost-efficiency aspect of facilitating
+distributed computing systems, or make the use of confidential computing
+technology impractical.
 
-Furthermore, confidential computing technologies are still a relatively new, and
-their integrations into other software such as hypervisors, firmware, operating
-systems, and into the remote attestation process are still in early stages,
-requiring further research and testing.
-
-While cloud providers are eager to adopt this new technology and are already
-offering services based on confidential computing technologies, the two case
-studies have shown that both the Infrastructure layer and the Platform layer are
-currently still not fulfilling all requirements of the trusted distributed
-computing model.
+Furthermore, confidential computing technologies are still relatively new.
+Implementations of TEE platforms, remote attestation protocols, and their
+support in other software components are still in early stages of development.
+Further research might uncover new vulnerabilities that require changes in
+implementations and design choices. Therefore, protocols and implementations are
+all still subject to substantial changes. While Cloud providers are eager to
+adopt this new technology and are already offering services based on
+confidential computing technologies, the two case studies have shown that both
+the infrastructure layer and the platform layer are currently still not
+fulfilling all requirements of the trusted distributed computing model.
 
 Nevertheless, confidential computing provides very promising hardware-based
 primitives that could allow a new generation of trustworthy distributed
-computing systems. Further research will tell whether current limitations and
-implementation challenges can be solved while preserving the confidentiality
-promises.
+computing systems, that meet the increasing demand of more privacy, and enable
+projects with stricter security requirements to consider the usage of a shared
+distributed computing system.

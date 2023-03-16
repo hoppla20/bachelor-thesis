@@ -15,19 +15,19 @@ will provide an overview of the remote attestation process.
 \end{figure}
 
 
-The remote attestation process begins with the relying party requesting a
-verification of the attester. Subsequently, the attester generates evidence
-about its trustworthiness, which is used by the verifier in combination with
-endorsements from endorsers and reference values from reference value providers
-by applying appraisal policies to assess the trustworthiness of the attester,
-producing attestation results. The relying party then applies its own appraisal
-policy to make an application-specific decision, such as performing a privileged
-action or releasing confidential data to the attester. This process is
-illustrated by Figure \ref{fig:rats-data-flow}.
+Remote attestation begins with the relying party requesting a verification of
+the attester. Subsequently, the attester generates evidence about its
+trustworthiness, which is used by the verifier in combination with endorsements
+from endorsers and reference values from reference value providers by applying
+an appraisal policy to assess the trustworthiness of the attester. After
+receiving the attestation results from the verifier the relying party applies
+its own appraisal policy to make an application-specific decision, such as
+performing a privileged action or releasing confidential data to the attester.
+This process is illustrated by Figure \ref{fig:rats-data-flow}.
 
 We will assume that the verifier has already established trust and a secure
-communication channel with the relying party. RATS outlines how the trust
-between those two roles can be established \cite[Section~7.1]{rfc9334}
+communication channel with the relying party. \citetitle{rfc9334} outlines how
+the trust between those two roles can be established \cite[Section~7.1]{rfc9334}
 
 \subsection{Chain of Trust}
 \label{sec:ra-chain-of-trust}
@@ -51,7 +51,7 @@ using its own private endorsement root key.
 The endorsement certificate represents the endorsement from the endorser that
 the attester can be trusted. Both the endorsement certificate and the public
 part of the endorser root key have to be provided to the verifier. Before
-starting its first verification, the verifier has to authenticate the
+starting the first verification, the verifier has to authenticate the
 endorsement certificate by validating its signature using the public endorser
 root key.
 
@@ -60,11 +60,11 @@ attestation key. After receiving evidence from the attester, the verifier first
 verifies that the evidence was produced by the attester by validating its
 signature using the public attestation key, which is included in the endorsement
 certificate. Subsequently, the verifier confirms the integrity of the evidence
-using the validated signature.
+using the signature.
 
-After validating the authenticity and integrity of the evidence, the verifier
-appraises the evidence using reference values provided by the reference
-provider.
+Finally, after validating the authenticity and integrity of the evidence, the
+verifier appraises the evidence and conveys the attestation results to the
+relying party.
 
 \subsection{Secure Communication Channel between Attester and Relying Party}
 \label{sec:ra-secure-communication-channel}
@@ -81,21 +81,21 @@ communication channel between the attester and the relying party. This can be
 achieved by integrating a key agreement protocol into the remote attestation
 process. This section will outline how a secure channel can be established
 between the attester and the relying party using the Diffie-Hellman key exchange
-as an example (see Section \ref{sec:key-agreement}). We will assume that the
-prime number $p$ and generator $g$ are already specified by the protocol or are
-already agreed upon.
+as an example (see Section \ref{sec:key-agreement}). To simplify the
+illustration we will assume that the prime number $p$ and generator $g$ are
+already specified by the protocol or have already been agreed upon.
 
 The relying party starts the attestation process, by requesting a verification
 of the attester. In the request the relying party includes the first key
-exchange message. The attester then produces evidence which includes the second
-key exchange message. Because the evidence is signed by the attestation key it
-is part of the chain of trust, allowing the verifier to validate the
-authenticity and integrity of the key exchange message. After a successful
-verification the verifier includes the key exchange message in the attestation
-result. Now both the attester and the relying party have exchange their key
-exchange messages, which included $pub_A$ and $pub_B$, allowing the derivation
-of a shared secret key $K$ that can be used to establish a secure communication
-channel between both parties.
+exchange message $pub_A$. The attester then produces evidence which includes the
+second key exchange message $pub_B$. Because the evidence is signed by the
+attestation key it is part of the chain of trust, allowing the verifier to
+validate the authenticity and integrity of the key exchange message. After a
+successful verification the verifier includes the key exchange message in the
+attestation result. Now both the attester and the relying party have exchange
+their key exchange messages, which included $pub_A$ and $pub_B$, allowing the
+derivation of a shared secret key $K$ that can be used to establish a secure
+communication channel between both parties.
 
 A man-in-the-middle attack between the attester and the verifier can easily be
 detected, because modification of the key exchange message would result in the

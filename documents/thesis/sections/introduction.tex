@@ -1,55 +1,56 @@
-Today distributed computing systems are largely based on the Grid or Cloud
-computing concept. These systems are based on a layered architecture where each
-layer's security is dependent on the security of the layers beneath it, with the
-lowest layer being hardware components and the highest layer being applications
-that implement abstract business logic. Each layer abstracts the complexity of
-the layers below it and provides a simplified interface to the layers above.
+Today distributed computing systems are mainly based on a layered architecture
+where each layer's security depends on the security of the layers beneath it.
+The lowest layer is the hardware appliances that form the foundation of
+distributed computing systems, and the highest layer is the collection of user
+applications that implement abstract business logic. Each layer abstracts the
+complexity of the layers below it and provides a simplified interface to the
+layers above.
 
-Service providers, entities that provide the resources and services of a
-distributed computing system, are largely concerned with the protection of the
-components that make up the lower layers of distributed computing systems (e.g.
-hypervisors providing virtualization of compute resources) from untrusted code
-(e.g. virtual machines run by the hypervisor). Traditionally, this isolation
-only protects the lower layer from the upper layer, and does not protect the
-confidentiality of the upper layer from the lower layer. As a result, the
-traditional distributed computing model is completely built around the
-assumption that tenants trust the service provider's software stack, including
-privileged software such as hypervisors and firmware, but also the service
-provider's staff, including system administrators but also those with physical
-access to hardware. But this trust is not only present in compute, storage, and
-network resources, today many applications utilize services provided by the
-service provider that implement privileged functionality, such as authentication
-and authorization mechanisms and management of cryptographic key material, in
-order to decrease the complexity of the application and be more cost-efficient.
+Service providers -- entities that provide the resources and services of a
+distributed computing system -- are primarily concerned with the protection of
+the components that make up the lower layers of distributed computing systems
+(e.g., hypervisors providing virtualization of compute resources) from untrusted
+code that tenants want to execute. Traditionally, this protection only isolates
+the lower layer from the upper layer and does not protect the confidentiality of
+the upper layer from the lower layer. As a result, the traditional distributed
+computing model is completely built around the assumption that tenants trust the
+service provider's software stack, including privileged software such as
+hypervisors and firmware, but also the service provider's staff, including
+system administrators and employees with physical access to hardware. But this
+trust is not only present in compute, storage, and network resources, today many
+applications utilize services provided by the service provider that implement
+security functionality, such as authentication, authorization, and management of
+cryptographic key material in order to decrease the complexity of the
+application and be more cost-efficient.
 
 Currently, the best practice for tenants to protect confidential data is to
-manage cryptographic keys themselves, for example by operating an own key
+manage cryptographic keys themselves, for example, by operating their own key
 management service (KMS) or service provider offered hardware security module
-(HSM). While this solution protects cryptographic keys and therefore encrypted
-data from the service provider, these keys are still used to decrypt
-confidential data that is subsequently used by compute resources managed by the
-service provider, making the protection of cryptographic keys from the service
-provider pointless. Other solutions rely on new cryptographic primitives that
-allow specific compute operations to be directly executed on encrypted data
+(HSM). While this solution protects cryptographic keys from the service
+provider, the keys are still used to decrypt confidential data that is
+subsequently used by compute resources managed by the service provider, making
+the protection of cryptographic keys from the service provider pointless. Other
+solutions rely on new cryptographic primitives that allow specific compute
+operations to be directly executed on encrypted data
 \cite{monique2013homomorphicencryption, bellare2007searchableencryption}.
 However, these solutions currently are either not applicable to general-purpose
-computing, or have very high performance limitations that make them impractical.
+computing or have very high performance limitations that make them impractical.
 
 This thesis introduces the integration of confidential computing technologies
 into the traditional distributed computing model. Confidential computing is an
 arising technology that provides execution environments, so-called trusted
 execution environments (TEEs), that protect applications by utilizing hardware
-primitives. By implementing the protection of applications in the lowest layer,
-the hardware, it is possible to remove management software such as hypervisors
-and operating systems from the list of required trusted software components and
-service providers from the list of required trusted entities. While TEEs provide
-protection for applications and confidential data, tenants have to be able to
-verify that applications are actually running inside TEEs and that the platform
-that provides TEEs has not been modified by the service provider. Remote
-attestation is an already widely used method for assessing the trustworthiness
-of remote devices, components, and environments. Commercially available
-confidential computing technologies such as Intel SGX and AMD SEV have built-in
-support for producing evidence that can be used for remote attestation.
+primitives. By implementing the protection of TEEs in the lowest layer, the
+hardware, it is possible to remove management software such as hypervisors and
+operating systems from the list of required trusted software components and
+service providers from the list of required trusted entities. While TEEs protect
+applications and confidential data, tenants have to be able to verify that
+applications are running inside TEEs and that the service provider has not
+modified the TEE platform. Remote attestation is an already widely used method
+for assessing the trustworthiness of remote devices, components, and
+environments. Commercially available confidential computing technologies such as
+Intel SGX and AMD SEV have built-in support for producing evidence indented for
+remote attestation purposes.
 
 This thesis will first research the current state of the traditional distributed
 computing model, confidential computing technology, and remote attestation
@@ -64,8 +65,8 @@ model. Chapter \ref{ch:trusted-distributed-computing-model} is mainly concerned
 with the integration of confidential computing (Section
 \ref{sec:confidential-computing}) and remote attestation (Section
 \ref{sec:remote-attestation}) into the traditional distributed computing model
-and defines requirements of the resulting trusted distributed computing model in
-Section \ref{sec:requirements}. Lastly, this thesis will evaluate the untrusted
-distributed computing model upon the threat model (Section
+and defines requirements for the resulting trusted distributed computing model
+in Section \ref{sec:requirements}. Lastly, this thesis will evaluate the
+untrusted distributed computing model upon the threat model (Section
 \ref{sec:evaluation}), and look at two case studies (Section
 \ref{sec:case-studies}).

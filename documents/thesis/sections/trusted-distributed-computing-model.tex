@@ -1,27 +1,41 @@
 Section \ref{sec:traditional-distributed-computing} described the traditional
-distributed computing model, where the service provider is trusted by the data
-owner, and defined a generalized layered model. This chapter will define a
-threat model, identify threats and issues of the Infrastructure and Platform
-layers when the service provider becomes untrusted. Subsequently, the new
-trusted distributed computing model will be defined, by integrating TEE
-technology (see Section \ref{sec:confidential-computing}) and the RATS framework
-(see Section \ref{sec:remote-attestation}) into the traditional distributed
-computing model. Finally, this chapter demonstrates this new model by looking at
-two case studies and evaluates the new model based on the threat model.
+distributed computing model, where the service provider is trusted by clients,
+and defined a generalized layered architecture. This chapter first describes a
+threat model, identifying threats and issues of the infrastructure and platform
+layers when the service provider becomes untrusted. The threat model is followed
+by changes that have to be made to the traditional trust model and architecture
+integrating confidential computing and remote attestation to address the
+threats and issues.
+
+Section \ref{sec:requirements} summarizes the changes into distinct requirements
+of the trusted distributed computing model, and Section \ref{sec:evaluation}
+evaluates the model using the threat model previously defined.
+
+Finally, this chapter looks at two projects that are working on implementing the
+trusted distributed computing model into the Kubernetes architecture, previously
+established in Section \ref{sec:example-kubernetes}.
 
 \section{Threat Model}
 \label{sec:untrusted-threat-model}
 
+The infrastructure and platform layer defined in Section
+\ref{sec:traditional-architecture-overview} are both administered by the now
+untrusted service providers. We will therefore identify threats originating from
+resources and services of those two layers.
+
 \subsection{Infrastructure Layer}
+
+While looking at the infrastructure layer we will also discuss why traditional
+mitigations fail in protecting data from untrusted service providers.
 
 \begin{description}
   \item[Threats from storage resources]
-    Storage resources of the Infrastructure layer are typically protected by
-    physically securing the location of the hardware and application transparent
-    encryption. However, in the trusted distributed computing model the
-    service provider is untrusted, and the application owner has to implement
-    application level encryption, preventing the service provider gaining plain
-    text access to confidential data.
+    Traditionally, the service provider protects storage resources by securing
+    the location of the physical hardware, and storage systems that provide
+    application-transparent encryption of data. These measures prevent external
+    attackers, but not the service provider, from gaining physical and
+    plain-text access to confidential data. Therefore, data encryption has to be
+    implemented at application level.
 
   \item[Threats from networking resources]
     Networking resources offer means of communication. However, in a distributed
@@ -30,8 +44,7 @@ two case studies and evaluates the new model based on the threat model.
     unauthorized access to confidential data shared by an application by
     capturing data from the shared network resources. Applications sharing
     confidential data using untrusted communication channels need to implement
-    authentication \cite{lampson1992authentication}, authorization
-    \cite{woo1992authorization}, and encryption in order to securely use these
+    authentication, authorization, and encryption in order to securely use these
     untrusted communication channels and not leak confidential data to a
     malicious attacker that has access to network resources. Authentication and
     encryption is usually implemented using the Transport Level Security (TLS)
@@ -39,19 +52,17 @@ two case studies and evaluates the new model based on the threat model.
     certificate authority) for authentication and the Diffie-Hellman key
     exchange protocol in order to establish a shared secret for encryption.
 
-    Typically, these implementations do not rely on services provided by the
-    service provider and as such pose no issues for moving to an untrusted
-    distributed computing model.
+    Typically, these implementations do not rely on infrastructure layer
+    resources and are implemented in the application layer.
 
   \item[Threats from compute resources]
     Techniques for protecting data resting in storage and traversing networking
     resources largely are based on cryptographic primitives, such as encryption,
-    one-way hash functions, and digital signatures. All of these primitives
-    require some kind of cryptographic key (e.g. secret key for symmetrical
-    encryption, private keys for asymmetrical encryption and singing) that need
-    to be kept secret. Typically, these keys and the decrypted data are stored
-    unprotected in the memory of the machines while in use and is therefore a
-    prime target for attacks.
+    and digital signatures. These primitives require a cryptographic key (e.g.
+    secret key for symmetrical encryption, private keys for asymmetrical
+    encryption and singing) that needs to be kept secret. Typically, these keys
+    and the decrypted data are stored unprotected in the memory of the machines
+    while in use, making memory the prime target of attackers.
 
     There are two types of physical attacks, related to the memory of a system,
     summarized by \citeauthor{weis2014protecting} \cite{weis2014protecting}:
@@ -117,21 +128,21 @@ two case studies and evaluates the new model based on the threat model.
     The \textsb{Secure Boot} approach verifies the signatures of each software
     component loaded during the boot process of a machine. This requires the
     maintenance of a certificate which is used to verify the signatures of the
-    firmware, bootloader, and kernel of the operating system.
-
-    But Secure Boot does not provide means to know what specific components
-    loaded during the boot process, only that those components are verified
-    using the provided certificate. \textsb{Measured Boot} aims to provide a
-    trusted record of the boot process. Traditionally, this has been done using
-    a Trusted Platform Module (TPM) which contains Platform Configuration
-    Registries (PCRs) that are used to store measurements of loaded software
-    components. These measurements are taken by various software components,
-    such as the firmware, or bootloader. After the boot the PCRs are sealed,
-    preventing the modification of the measurements, and signed by the TPM.
-    Measured Boot then relies on a remote attestation process (see Section
-    \ref{sec:remote-attestation}), to recover the signed set of measurements,
-    verify the signature, and evaluate whether the measurements follow a known
-    policy.
+    firmware, bootloader, and kernel of the operating system. But Secure Boot
+    does not provide means to know what specific components loaded during the
+    boot process, only that those components are verified using the provided
+    certificate.
+    
+    \textsb{Measured Boot} aims to provide a trusted record of the boot process.
+    Traditionally, this has been done using a Trusted Platform Module (TPM)
+    which contains Platform Configuration Registries (PCRs) that are used to
+    store measurements of loaded software components. These measurements are
+    taken by various software components, such as the firmware, or bootloader.
+    After the boot the PCRs are sealed, preventing the modification of the
+    measurements, and signed by the TPM. Measured Boot then relies on a remote
+    attestation process (see Section \ref{sec:remote-attestation}), to recover
+    the signed set of measurements, verify the signature, and evaluate whether
+    the measurements follow a known policy.
 
     Secure boot and Measured Boot rely on a trusted software component to verify
     and/or measure other software components required for the boot process.
@@ -143,7 +154,7 @@ two case studies and evaluates the new model based on the threat model.
   \centering
   \scriptsize
   \input{resources/infrastructure-threats-summary.tex}
-  \caption{Overview of Infrastructure layer threats, typical mitigations in the traditional distributed computing model, and arising issues when moving to the trusted distributed computing model.}
+  \caption{Overview of infrastructure layer threats, typical mitigations in the traditional distributed computing model, and arising issues when moving to the trusted distributed computing model.}
   \label{table:threats-overview}
 \end{table}
 
@@ -151,8 +162,8 @@ two case studies and evaluates the new model based on the threat model.
 
 \begin{description}[style=standard]
   \item[Infrastructure management services] typically have full access to
-    Infrastructure layer resources. Therefore, the same threats of the
-    Infrastructure layer apply here.
+    infrastructure layer resources. Therefore, the same threats of the
+    infrastructure layer apply here.
 
   \item[Security services] offer application-level authentication,
     authorization, and/or encryption, support the process of implementing
@@ -162,7 +173,7 @@ two case studies and evaluates the new model based on the threat model.
     Privilege), and/or gain plain text access to confidential data.
 
   \item[Monitoring and Logging services] aggregating metrics and logs of
-    applications in the Platform layer. While monitoring metrics usually do not
+    applications in the platform layer. While monitoring metrics usually do not
     contain sensitive information, the application logs can in some cases
     contain sensitive information.
 
@@ -184,10 +195,11 @@ two case studies and evaluates the new model based on the threat model.
   \centering
   \scriptsize
   \input{resources/platform-threats-summary.tex}
-  \caption{Issues in the Platform layer when moving to an trusted distributed computing model.}
+  \caption{Issues in the platform layer when moving to a trusted distributed computing model.}
 \end{table}
 
 \section{Trust Model}
+\label{sec:trusted-trust-model}
 
 The roles of the trusted distributed computing model are still present, with the
 difference that the service provider is no longer consider trusted. However,
@@ -197,7 +209,7 @@ service provider is given additional responsibilities:
 \begin{description}
   \item[Hardware Manufacturer]
     The hardware manufacturer provides hardware to the service provider that
-    form the base for the Infrastructure layer. The hardware has to be able to
+    form the base for the infrastructure layer. The hardware has to be able to
     provide TEEs and the hardware manufacturer endorses the security of those
     TEEs. As such the hardware manufacturer takes on the endorser role defined
     by RATS (see Section \ref{sec:remote-attestation}). Even though, this model
@@ -206,8 +218,8 @@ service provider is given additional responsibilities:
     hardware manufacturer is present.
 
   \item[Service Provider]
-    In this model service providers not only provides Infrastructure layer
-    resources and manages Platform layer services, but now utilize a TEE
+    In this model service providers not only provides infrastructure layer
+    resources and manages platform layer services, but now utilize a TEE
     platform provided by the hardware manufacturer in order to offer the
     capability of creating TEEs and getting evidence for the integrity of the
     TEEs. These TEEs will be used by the application owner to execute
@@ -225,10 +237,10 @@ service provider is given additional responsibilities:
 
   \item[Application Owner]
     The responsibilities of application owners did not change. However, because
-    in this model the service provider is untrusted, services of the Platform
+    in this model the service provider is untrusted, services of the platform
     layer are also untrusted. As such, the application owner has to ensure that
-    the security of the Application layer does not depend on services of the
-    Platform layer.
+    the security of the application layer does not depend on services of the
+    platform layer.
 \end{description}
 
 In this model, the service provider is the only role that is not trusted by the
@@ -237,6 +249,7 @@ can take on multiple roles. However, the entity taking on the role of the
 service provider can not take on any other roles.
 
 \section{Architectural Overview}
+\label{sec:trusted-architecture-overview}
 
 \subsection{Verifier}
 
@@ -294,17 +307,17 @@ process.
 
 \subsection{Platform Layer}
 
-Like in the traditional distributed computing model, the Platform layer builds
-on top of the Infrastructure layer. Therefore, this section assumes the presence
+Like in the traditional distributed computing model, the platform layer builds
+on top of the infrastructure layer. Therefore, this section assumes the presence
 of a TEE platform that can be used to securely deploy applications and provide
 the application with confidential data.
 
 Because in this model the service provider is untrusted, there are three
 possible solutions to the issues of the services typically located in the
-Platform layer:
+platform layer:
 
 \begin{itemize}
-  \item Moving these services to the Application layer or directly implementing
+  \item Moving these services to the application layer or directly implementing
         the tasks that these services take on into applications.
   \item Management of the service by a trusted party that is not the application
         owner (otherwise it would mean that the service is in the application
@@ -314,14 +327,14 @@ Platform layer:
         the privileged part has to be managed by the application owner.
 \end{itemize}
 
-The first option can be applied to all services of the Platform layer, as such
+The first option can be applied to all services of the platform layer, as such
 this section will focus on the evaluation of each previously defined service
 type based on the latter two options.
 
 \begin{description}[style=standard]
   \item[Infrastructure Management Services] do not need to be modified and can
     still be managed by the service provider, assuming applications are
-    adequately shielded from Infrastructure layer resources as described in the
+    adequately shielded from infrastructure layer resources as described in the
     previous section.
 
   \item[Security Services] can not be managed by an untrusted party, as
@@ -386,9 +399,9 @@ type based on the latter two options.
 The threat model above already discussed how application level authentication,
 authorization, and encryption of confidential data is crucial to protect data
 resting in storage resources and traversing network resources. As the service
-provider is not trusted, Infrastructure and Platform layer protection methods
+provider is not trusted, infrastructure and platform layer protection methods
 can not be used, and the application owner has to implement these protections
-into the Application layer.
+into the application layer.
 
 \section{Requirements}
 \label{sec:requirements}
@@ -449,19 +462,19 @@ requirements for the application owner. The application owner has to:
 
 \begin{enumerate}[resume,label*=R\arabic*]
   \item implement security (authentication, authorization, and encryption) in
-        the Application layer, not relying on security services provided by the
-        Platform layer.
+        the application layer, not relying on security services provided by the
+        platform layer.
   \item protect application logs by removing, encrypting, or obfuscating
         confidential information from the logs.
-  \item deploy applications inside TEEs. This includes:
+  \item securely deploy applications inside TEEs. This includes:
         \begin{enumerate}[label*=.\arabic*]
           \item providing reference values for applications and their
                 configuration.
           \item installing, configuring, and executing applications inside TEEs.
-          \item securely supplying applications with confidential data only
-                after verification of applications and their surrounding TEE
-                (e.g. by establishing a secure communication channel during the
-                remote attestation process).
+          \item supplying applications with confidential data only after
+                verification of applications and their surrounding TEE (e.g. by
+                establishing a secure communication channel during the remote
+                attestation process).
         \end{enumerate}
 \end{enumerate}
 
@@ -483,7 +496,7 @@ access to storage and network resources or the untrusted service provider
 providing these resources, still do not have plain text access to confidential
 data.
 
-Threats from compute resources of the Infrastructure layer are addressed by
+Threats from compute resources of the infrastructure layer are addressed by
 R1-R6. The issue of traditional mitigations of these threats was the lack of a
 trusted component that can verify the integrity of components that implement the
 mitigations. R3 and R4 require the service provider to offer the capability to
@@ -532,14 +545,14 @@ measurements of software components of the TEE platform and the TEEs (R4),
 allowing a verifier to verify the integrity of the TEE platform (R6) and TEEs
 (R5).
 
-R7 requires the implementation of security mechanisms in the Application layer.
-These mechanisms can not be based on security services provided by the Platform
+R7 requires the implementation of security mechanisms in the application layer.
+These mechanisms can not be based on security services provided by the platform
 layer, as this would allow spoofing and elevation of privilege attacks, or plain
 text access to confidential data from the untrusted service provider. While R8
 does not require moving monitoring and logging services into the application
-layer, it does require the Application layer to protect sensitive information in
+layer, it does require the application layer to protect sensitive information in
 application logs. Infrastructure management services can still be part of the
-Platform layer, as confidential is already protected from Infrastructure layer
+platform layer, as confidential is already protected from infrastructure layer
 resources by R1-R7.
 
 Application orchestration however, still relies on management of target
@@ -557,7 +570,7 @@ malicious code.
 
 On the one hand, all R7-R9 remove the service provider as a trusted party, but
 on the other hand they significantly increase the responsibilities of
-application owners and the size of the Application layer.
+application owners and the size of the application layer.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Case Studies
@@ -572,9 +585,9 @@ Constellation is a project maintained by Edgeless
 Systems\footnote{\url{https://docs.edgeless.systems/constellation/}}. By
 extending Kubernetes, Constellation provides a platform base that includes
 infrastructure management and application orchestration services (see Section
-\ref{sec:example-kubernetes}) on top of the Infrastructure layer provided by an
-untrusted cloud provider. Its contribution is the protection of the whole
-Kubernetes cluster from underlying Infrastructure layer resources by utilizing
+\ref{sec:example-kubernetes}) on top of the infrastructure layer provided by an
+untrusted Cloud provider. Its contribution is the protection of the whole
+Kubernetes cluster from underlying infrastructure layer resources by utilizing
 VM-based TEEs, and providing transparent network and storage encryption.
 
 \begin{figure}[H]
@@ -608,24 +621,24 @@ infrastructure and security services
 
 Constellation currently only supports AMD SEV, making AMD take on the role of
 hardware manufacturer that provides and endorses the TEE platform (R1 and R2).
-However, the currently supported cloud providers (Azure, GCP, AWS) do not fully
+However, the currently supported Cloud providers (Azure, GCP, AWS) do not fully
 support the trusted distributed computing model at the time of writing. For
 example AWS currently does not provide the capability of providing SEV based
 VMs, not meeting R3. While Azure and GCP provide SEV based VMs, Azure currently
 does not provide reviewable VM firmware, not meeting R4.2, and GCP does not
 provide evidence produced by the SEV platform, not meeting R4.
 
-Because the cloud providers do not meet R3 and R4, the verifier in the
+Because the Cloud providers do not meet R3 and R4, the verifier in the
 Constellation architecture (JoinService) can not fulfill R5 and R6. On the one
-hand, if the cloud provider does not meet R3, there are no TEEs to be verified,
-making complying with R5 impossible. On the other hand, if the cloud provider
+hand, if the Cloud provider does not meet R3, there are no TEEs to be verified,
+making complying with R5 impossible. On the other hand, if the Cloud provider
 does not meet R4, the verifier can not fully verify the integrity of the TEE
 platform or TEE, preventing the verifier to satisfy R6.
 
 While Edgeless Systems provides application owners with tools to create and
 manage a Constellation Kubernetes cluster, the cluster still has to be
 administered by the application owner, putting the whole cluster into the
-Application layer. In doing so Constellation meets requirements R7 and R9,
+application layer. In doing so Constellation meets requirements R7 and R9,
 because security services (KeyService, CNI, and CSI plugin) and application
 orchestration services (natively included in Kubernetes) are now managed by the
 application owner.
@@ -701,9 +714,8 @@ include ConfigMaps and Secrets.
         images, storage configuration, and network configuration.
   \item Kubelet calls the container runtime to create the pod and configure its
         storage and network.
-  \item The container runtime in turn calls the TEE platform to create a
-        VM-based TEE using a predefined VM image that includes the enclave
-        agent.
+  \item The container runtime calls the TEE platform to create a VM-based TEE
+        using a predefined VM image that includes the enclave agent.
   \item During the boot of the VM the TEE platform produces signed evidence that
         is then passed to the enclave agent after the VM has fully booted. The
         container runtime also passes the pod specifications to the enclave
@@ -730,3 +742,13 @@ Note that the enclave agent is only trusted, because it is included in the VM
 image which is verified by the verifier. Modification of the enclave agent (or
 any other software in the VM image) would fail the verification and lead to the
 key broker service not releasing keys to the enclave agent.
+
+While the overall architecture is there, Confidential Containers is still far
+from production ready. Specific implementations are still missing or under
+discussion, for example the components of the remote attestation process, mainly
+the key broker service and the enclave agent, are still under heavy development,
+and implementation details of the dual control plane architecture and the
+verification of pod specifications are still under discussion. These issues
+require changes in the whole Kubernetes architecture, from the API down to the
+container runtime. Before these issues have been resolved, Confidential
+Containers does not fully meet requirement R9.

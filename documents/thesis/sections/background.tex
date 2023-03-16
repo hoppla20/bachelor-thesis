@@ -2,61 +2,59 @@
 \label{sec:cryptographic-concepts}
 
 Cryptography is the practice of protecting data by transforming it into a format
-that is unreadable by an unauthorized party. In this background section we will
-have a look at the basics of symmetric cryptography, asymmetric cryptography,
-and key agreement protocols.
+that is unreadable by unauthorized parties. In this background section, we will
+look at the basics of symmetric cryptography, asymmetric cryptography, and key
+agreement protocols.
 
 \subsection{Symmetric and Asymmetric Cryptography}
 \label{sec:symmetric-asymmetric-cryptography}
 
 Symmetric cryptography, also known as secret-key cryptography, is a method of
-encryption where the same key is used for both encryption and decryption. This
-means that both the sender and receiver must have the same key to encrypt and
-decrypt messages. In symmetric cryptography, the key is kept secret and secure
-to prevent unauthorized access. The most common symmetric encryption algorithms
-are Advanced Encryption Standard (AES) and Data Encryption Standard (DES).
+encryption where the same key -- the secret key -- is used for encryption and
+decryption. The key has to be securely distributed and stored to prevent
+unauthorized access. The most common symmetric encryption algorithms are
+Advanced Encryption Standard (AES) and Data Encryption Standard (DES).
 
 The main benefit of symmetric cryptography is its performance. Since the same
-key is used for encryption and decryption, it is a fast and efficient process.
-However, one of the major drawbacks of symmetric cryptography is the issue of
-key management. Managing and distributing keys to entities and components that
-require access to encrypted data is a challenging task. Furthermore, if a key is
-compromised, all data encrypted with that key can be easily decrypted.
+key is used for encryption and decryption, it is fast and efficient. However,
+one of the significant drawbacks of symmetric cryptography is the issue of key
+management. Securely storing and distributing keys to entities and components
+that require access to encrypted data is challenging. Furthermore, attackers
+that gain access to a key can quickly gain plain-text access to encrypted
+confidential data.
 
 Asymmetric cryptography, also known as public-key cryptography, is a method of
-encryption where two different keys are used for encryption and decryption.
-These keys are mathematically related, but they cannot be derived from each
-other. One key is kept private, and the other key is made public. The private
-key is used for decryption, while the public key is used for encryption. The
-most common asymmetric encryption algorithms are RSA and Elliptic Curve
+encryption where two different keys are used for encryption and decryption. One
+key is kept private, and the other key is made public. The private key is used
+for decryption, while the public key is used for encryption. These keys are
+mathematically related, but the private key cannot be derived from the public
+key. The most common asymmetric encryption algorithms are RSA and Elliptic Curve
 Cryptography (ECC).
 
-One of the significant benefits of asymmetric cryptography is that it eliminates
-the need for key management. Each user or system can have a unique pair of
-public and private keys, and the public key can be shared with anyone. The
-private key, on the other hand, is kept secure and confidential. Asymmetric
-cryptography is slower than symmetric cryptography due to the complexity of the
-mathematical algorithms involved. However, it is more secure since even if the
-public key is compromised, the private key cannot be derived from it.
+Digital signatures are a widely used application of asymmetric cryptography. A
+digital signature is a cryptographic primitive that verifies a dataset's
+integrity and authenticity. The data owner uses their private key to generate a
+unique digital signature cryptographically bound to the dataset's content. When
+the owner sends the dataset together with the signature to another party, the
+receiver can use the owner's public key to verify the signature's authenticity
+and the dataset's integrity. A successfully validated signature gives the
+recipient confidence that the data owner sent the dataset and that the dataset
+has not been modified during transit.
 
-Digital signature is a widely used application of asymmetric cryptography. A
-digital signature is a cryptographic primitive that is used to verify the
-integrity and authenticity of a data. The process of digital signature involves
-two steps: signing and verification. To sign data, the owner of the data uses
-their private key to generate a unique digital signature. When the owner sends
-the data together with the signature to another party, the receiver can use the
-owner's public key to verify the signature's authenticity and the data's
-integrity. If the verification of the digital was successful, the receiver can
-be confident that the data was sent by the owner has not been modified during
-transit.
+Asymmetric cryptography is slower than symmetric cryptography due to the
+complexity of the mathematical algorithms involved. One of the significant
+benefits of asymmetric cryptography is that it eliminates the need for secret
+key management. Each user or system can have a unique pair of public and private
+keys, and the public key can be shared with anyone. The private key, on the
+other hand, has to be stored securely.
 
 \subsection{Key Agreement}
 \label{sec:key-agreement}
 
 Key agreement is a crucial component of secure communication. It involves two
 parties agreeing on a secret key (symmetric cryptography) that can be used for
-encryption and decryption of messages. One of the most popular key agreement
-protocols is the Diffie-Hellman protocol.
+the encryption and decryption of messages. This section illustrates a key
+agreement process using the popular Diffie-Hellman protocol.
 
 The Diffie-Hellman protocol is a key agreement protocol that utilizes asymmetric
 cryptography in order to allow two parties to agree on a mutual secret key over
@@ -64,28 +62,25 @@ an insecure channel. A simplified overview of the process is as follows (with
 parties Alice and Bob):
 
 \begin{enumerate}
-  \item Both parties establish shared parameters: a prime number $p$ and
-        generator $g$.
+  \item Both parties establish shared parameters: prime number $p$ and generator
+        $g$.
   \item Each party generates a random number ($A$ for Alice and $B$ for Bob) and
         computes a publicly known number $pub_A = g^A \mod p$ and $pub_B = g^B
           \mod p$ respectively.
   \item Both parties exchange their public number $pub_A$ and $pub_B$.
-  \item Both parties compute the shared secret key $K = (pub_A)^B = (pub_B)^A =
-          g^{AB} \mod p$
-  \item The secret key $K$ can then be used to encrypt and decrypt messages send
-        between both parties, establishing a secure communication channel over
-        an insecure channel.
+  \item Both parties compute the shared secret key $K = (pub_A)^B \mod p =
+          (pub_B)^A \mod p = g^{AB} \mod p$
+  \item Alice and Bob can then use the secret key $K$ to encrypt and decrypt
+        messages sent between both parties, establishing a secure communication
+        channel over an insecure channel.
 \end{enumerate}
 
 Even though attackers might gain knowledge about $p$, $g$, $pub_A$, and $pub_B$
 by listening to the insecure channel, they can not derive the secret key $K$
-from the publicly known numbers. If we assume that the prime number $p$ and
-generator $g$ are already specified in a specific protocol or have been
-pre-established, there are exactly two messages that need to be exchanged
-between Alice and Bob. For example, if Alice is the initiator of the
-communication, Alice starts by sending $pub_A$ upon which Bob responds with
-$pub_B$. After exchanging those two messages, Alice and Bob can already derive
-the shared secret key $K$.
+from the publicly known numbers. Suppose we assume that the prime number p and
+generator g are already specified in a specific protocol or have been
+pre-established. In that case, Alice and Bob have to exchange exactly two
+messages, $pub_A$ and $pub_B$.
 
 However, an attacker might perform a man-in-the-middle attack, where the
 attacker intercepts the key agreement process and establishes shared secrets
@@ -94,17 +89,18 @@ decrypts the message using the shared secret key with Alice, gains access to the
 plain text content of the message, encrypts the message using the shared secret
 with Bob, and finally relays the message to Bob.
 
-Furthermore, the attacker can even impersonate either party in the
-communication. For example, Bob thinks that the secret key he/she established
-with the attacker is only known by Bob and Alice. Therefore, Bob assumes that
-messages encrypted with this secret key and send to Bob by the attacker, are
-sent by Alice.
+Not only does the attacker gain plain-text access to the messages, but the
+attacker can even impersonate either party in the communication. For example,
+Bob thinks that the secret key he/she established with the attacker is only
+known by Bob and Alice. Therefore, Bob assumes that messages encrypted with this
+secret key are sent by Alice, although the attacker might have sent them.
 
-In order to mitigate man-in-the-middle attacks, either Alice or Bob has to
-authenticate the other party. This can be achieved using asymmetric
-cryptographic keys. For example, Bob uses his own private key to sign the
-message that includes $pub_B$ and is sent to Alice. Alice then uses Bob's public
-key in order to verify that the message is indeed sent by Bob. The public keys
-can be securely exchanged between Alice and Bob by facilitating a Public Key
-Infrastructure (PKI). However, this thesis will not further go into detail about
-PKIs.
+To mitigate man-in-the-middle attacks, either Alice or Bob must authenticate the
+other party. This can be achieved by utilizing digital signatures. For example,
+Bob uses his own private key to sign the message that includes $pub_B$ and sends
+the message and the signature to Alice. Alice then uses Bob's public key to
+verify the messages authenticity and integrity.
+
+Public keys can be securely exchanged between Alice and Bob by facilitating a
+Public Key Infrastructure (PKI). However, this thesis will not further go into
+detail about PKIs.
