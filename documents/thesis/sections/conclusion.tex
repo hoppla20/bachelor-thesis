@@ -4,34 +4,31 @@ service providers. Using a threat model that identified threats and issues that
 arise when service providers become untrusted, this thesis evaluated the trusted
 distributed computing model, which integrates confidential computing and remote
 attestation into the traditional distributed computing model. The evaluation
-showed that confidential computing combined with remote attestation can solve
+showed that confidential computing combined with remote attestation could solve
 the threats and issues of the traditional model.
 
 However, the removal of the service provider as a trusted entity comes with a
 trade-off. While the traditional model allowed tenants to shift more and more
 responsibilities to the service provider, reducing the complexity of
 applications, the trusted model reduces this benefit by giving responsibilities
-that could lead to the compromise of the confidentiality of data back to the
-application owner.
+that could compromise the confidentiality of data back to the application owner.
 
 Additionally, current confidential computing technologies still have performance
 limitations that either lessen the cost-efficiency aspect of facilitating
-distributed computing systems, or make the use of confidential computing
-technology impractical.
+distributed computing systems or make using confidential computing technology
+impractical.
 
 Furthermore, confidential computing technologies are still relatively new.
 Implementations of TEE platforms, remote attestation protocols, and their
-support in other software components are still in early stages of development.
-Further research might uncover new vulnerabilities that require changes in
-implementations and design choices. Therefore, protocols and implementations are
-all still subject to substantial changes. While Cloud providers are eager to
-adopt this new technology and are already offering services based on
-confidential computing technologies, the two case studies have shown that both
-the infrastructure layer and the platform layer are currently still not
-fulfilling all requirements of the trusted distributed computing model.
+support in other software components are still in the early stages of
+development. Further research might uncover new vulnerabilities that require
+changes in implementations and design choices. Therefore, protocols and
+implementations are all still subject to substantial changes. While Cloud
+providers are eager to adopt this new technology and are already offering
+services based on confidential computing technologies, the two case studies have
+shown that the infrastructure and platform layers are still not fulfilling all
+requirements of the trusted distributed computing model.
 
 Nevertheless, confidential computing provides very promising hardware-based
 primitives that could allow a new generation of trustworthy distributed
-computing systems, that meet the increasing demand of more privacy, and enable
-projects with stricter security requirements to consider the usage of a shared
-distributed computing system.
+computing systems that meet the increasing demand for more privacy.

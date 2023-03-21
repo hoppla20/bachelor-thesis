@@ -33,11 +33,8 @@ layers of the Grid computing model defined by \citeauthor{foster2001grid}
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.3\linewidth]{resources/grid-architecture.drawio.png}
-  \caption[The layered Grid architecture.]{
-    The layered Grid architecture.\\
-    Source: \citetitle{foster2001grid} \cite{foster2001grid}
-  }
+  \includegraphics[width=0.25\linewidth]{resources/grid-architecture.drawio.png}
+  \caption{The layered Grid architecture.}
   \label{fig:grid-architecture}
 \end{figure}
 
@@ -297,8 +294,7 @@ into five non-mutually exclusive categories:
 
   \item[Monitoring and Logging]
     Monitoring and logging services collect monitoring metrics and logs from
-    applications. While metrics typically do not contain sensitive information,
-    application logs sometimes do.
+    applications.
 
   \item[Application orchestration]
     Application orchestration refers to the automated management of
@@ -416,7 +412,7 @@ relations between those components.
 
 Kubernetes enables Cloud providers to implement Cloud specific infrastructure
 management services by developing a cloud-controller-manager, Container Storage
-Interface (CSI) plugin, and Container Network Interface (CNI) plugin, allowing
+Interface (CSI) plugins, and Container Network Interface (CNI) plugins, allowing
 tenants to automatically scale their Kubernetes cluster depending on the current
 need.
 
@@ -427,9 +423,9 @@ CSI plugins are responsible for creating, updating, and destroying storage
 resources in order to provide pods with persistent storage, referred to as
 persistent volumes. Cloud providers often also provide storage encryption in
 conjunction with their storage resources. These encryption services use keys
-provided by a KMS. While some Cloud providers allow tenants to provide their own
-KMS, the encryption service still needs plain text access to keys in order to
-encrypt and decrypt data.
+provided by a KMS. While some Cloud providers allow tenants to utilize their
+self-managed KMS, the encryption service still needs plain text access to keys
+to encrypt and decrypt data.
 
 CNI plugins create, update, and destroy the underlying network resources of the
 Kubernetes cluster and provide node-level, and pod-level communication. Some CNI

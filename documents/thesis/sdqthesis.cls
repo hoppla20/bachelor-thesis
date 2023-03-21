@@ -102,11 +102,7 @@
 \ifdraft{
   \typearea[0mm]{10} % draft
 }{
-  \if@twoside
-    \typearea[20mm]{15}
-  \else
-    \typearea[10mm]{15}
-  \fi
+  \typearea[10mm]{15}
 }
 \RequirePackage[headsepline,draft=false]{scrlayer-scrpage}
 \pagestyle{scrheadings}

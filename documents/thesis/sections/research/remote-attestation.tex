@@ -5,7 +5,7 @@ Remote attestation is the process that allows a remote party to verify the
 trustworthiness of a device or platform. \citetitle{rfc9334} \cite{rfc9334}
 provides a standardized framework for remote attestation, which defines various
 roles, protocols, and data structures involved in this process. This section
-will provide an overview of the remote attestation process.
+will give an overview of the remote attestation process.
 
 \begin{figure}[H]
   \centering
@@ -14,16 +14,15 @@ will provide an overview of the remote attestation process.
   \label{fig:rats-data-flow}
 \end{figure}
 
-
 Remote attestation begins with the relying party requesting a verification of
 the attester. Subsequently, the attester generates evidence about its
-trustworthiness, which is used by the verifier in combination with endorsements
-from endorsers and reference values from reference value providers by applying
-an appraisal policy to assess the trustworthiness of the attester. After
-receiving the attestation results from the verifier the relying party applies
-its own appraisal policy to make an application-specific decision, such as
-performing a privileged action or releasing confidential data to the attester.
-This process is illustrated by Figure \ref{fig:rats-data-flow}.
+trustworthiness, which the verifier uses in combination with endorsements from
+endorsers and reference values from reference value providers by applying an
+appraisal policy to assess the trustworthiness of the attester. After receiving
+the attestation results from the verifier, the relying party applies its own
+appraisal policy to make an application-specific decision, such as performing a
+privileged action or releasing confidential data to the attester. This process
+is illustrated by Figure \ref{fig:rats-data-flow}.
 
 We will assume that the verifier has already established trust and a secure
 communication channel with the relying party. \citetitle{rfc9334} outlines how
@@ -34,19 +33,19 @@ the trust between those two roles can be established \cite[Section~7.1]{rfc9334}
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.7\linewidth]{resources/ra-chain-of-trust.drawio.png}
+  \includegraphics[width=0.75\linewidth]{resources/ra-chain-of-trust.drawio.png}
   \caption{Remote attestation chain of trust.}
   \label{fig:ra-chain-of-trust}
 \end{figure}
 
 Typically, a verifier comes to trust an attester indirectly by having an
-endorser, creating a chain of trust. This chain of trust is rooted at the
+endorser, creating a chain of trust. The root of the chain of trust is the
 endorser root key. The endorser provisions each attester with an attestation
 key, which is used to sign evidence. At the very least, the private part of the
-attestation key has to be stored in tamper-proof hardware, in order to prevent
-unauthorized access to the key. The endorser then issues an endorsement
-certificate which includes the public attestation key and signs the certificate
-using its own private endorsement root key.
+attestation key must be stored in tamper-proof hardware to prevent unauthorized
+access to the key. The endorser then issues an endorsement certificate which
+includes the public attestation key, and signs the certificate using its own
+private endorsement root key.
 
 The endorsement certificate represents the endorsement from the endorser that
 the attester can be trusted. Both the endorsement certificate and the public
@@ -57,8 +56,8 @@ root key.
 
 Evidence produced by the attester is signed by the attester using the
 attestation key. After receiving evidence from the attester, the verifier first
-verifies that the evidence was produced by the attester by validating its
-signature using the public attestation key, which is included in the endorsement
+verifies that the attester produced the evidence by validating its signature
+using the public attestation key, which is included in the endorsement
 certificate. Subsequently, the verifier confirms the integrity of the evidence
 using the signature.
 
@@ -82,27 +81,27 @@ achieved by integrating a key agreement protocol into the remote attestation
 process. This section will outline how a secure channel can be established
 between the attester and the relying party using the Diffie-Hellman key exchange
 as an example (see Section \ref{sec:key-agreement}). To simplify the
-illustration we will assume that the prime number $p$ and generator $g$ are
+illustration, we will assume that the prime number $p$ and generator $g$ are
 already specified by the protocol or have already been agreed upon.
 
-The relying party starts the attestation process, by requesting a verification
-of the attester. In the request the relying party includes the first key
-exchange message $pub_A$. The attester then produces evidence which includes the
-second key exchange message $pub_B$. Because the evidence is signed by the
-attestation key it is part of the chain of trust, allowing the verifier to
-validate the authenticity and integrity of the key exchange message. After a
-successful verification the verifier includes the key exchange message in the
-attestation result. Now both the attester and the relying party have exchange
-their key exchange messages, which included $pub_A$ and $pub_B$, allowing the
-derivation of a shared secret key $K$ that can be used to establish a secure
-communication channel between both parties.
+The relying party starts the attestation process by requesting a verification of
+the attester. In the request, the relying party includes the first key exchange
+message $pub_A$. The attester then includes the second key exchange message
+$pub_B$ in the produced evidence. Because the evidence is signed using the
+attestation key, the key exchange message is part of the chain of trust,
+allowing the verifier to validate the authenticity and integrity of the key
+exchange message. After successful verification, the verifier includes the key
+exchange message in the attestation result. Now $pub_A$ and $pub_B$ have been
+exchanged between the attester and the relying party, allowing the derivation of
+the shared secret $K$ that can be used to establish a secure communication
+channel between both parties.
 
 A man-in-the-middle attack between the attester and the verifier can easily be
-detected, because modification of the key exchange message would result in the
-verification of the integrity of the evidence to fail.
+detected because modification of the key exchange message would result in the
+verification of the integrity of the evidence failing.
 
-While the previous illustration is about the integration of the establishment of
-a secure communication channel into the remote attestation process, current
-ongoing work by \citeauthor{fossati-tls-attestation-02}
-\cite{fossati-tls-attestation-02} proposes the reverse, integration of the
-remote attestation process into the already well established TLS protocol.
+While this illustration is about the establishment of a secure communication
+channel in the remote attestation process, current ongoing work by
+\citeauthor{fossati-tls-attestation-02} \cite{fossati-tls-attestation-02}
+proposes the reverse, integration of the remote attestation process into the
+already well-established TLS protocol.
